@@ -9,7 +9,7 @@ import "pkg:/source/utils.brs"
 (source_file
   (import_declaration
     source: (string
-      (string_content))))
+      (string_contents))))
 
 ==================
 Import with alias
@@ -22,7 +22,7 @@ import "pkg:/source/utils.brs" as Utils
 (source_file
   (import_declaration
     source: (string
-      (string_content))
+      (string_contents))
     alias: (identifier)))
 
 ==================
@@ -38,11 +38,11 @@ import "pkg:/source/services.brs"
 (source_file
   (import_declaration
     source: (string
-      (string_content)))
+      (string_contents)))
   (import_declaration
     source: (string
-      (string_content))
+      (string_contents))
     alias: (identifier))
   (import_declaration
     source: (string
-      (string_content))))
+      (string_contents))))

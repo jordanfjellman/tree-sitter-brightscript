@@ -1,8 +1,5 @@
 ; Function definition
-(function_statement) @function.outer
-
-; Sub definition
-(sub_statement) @function.outer
+(function_declaration) @function.outer
 
 ; If statement
 (if_statement) @if.outer
@@ -28,19 +25,16 @@
 ; Property access expression
 ; (property_access_expression) @property.outer
 
-; Logical expression
-(logical_expression) @logical.outer
+; Binary expression (logical, arithmetic, comparison)
+(binary_expression) @binary.outer
 
 ; Logical not expression
 (logical_not_expression) @logical_not.outer
-
-; Arithmetic expression
-(arithmetic_expression) @arithmetic.outer
 
 ; Comment
 (comment) @comment.outer
 
 ; String
-(string_contents) @attribute.inner
+(string_content) @attribute.inner
 (string) @attribute.outer
 

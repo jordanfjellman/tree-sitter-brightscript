@@ -118,5 +118,5 @@ end namespace
           (return_statement
             (binary_expression
               left: (identifier)
-              operator: "+"
+              operator: (plus)
               right: (identifier))))))))

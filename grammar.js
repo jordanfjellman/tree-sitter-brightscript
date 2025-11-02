@@ -1,24 +1,29 @@
 const PREC = {
   ASSIGNMENT: 1,
-  LOGICAL: 2,
-  RETURN: 2,
-  THROW: 2,
-  IF: 2,
-  COMPARISON: 3,
-  ADDITIVE: 4,
-  MULTIPLICATIVE: 5,
-  UNARY: 6,
-  LOGICAL_NOT: 7,
-  PREFIX_INCREMENT: 8,
-  PREFIX_DECREMENT: 8,
-  POSTFIX_INCREMENT: 9,
-  POSTFIX_DECREMENT: 9,
+  TERNARY: 2,
+  LOGICAL: 3,
+  RETURN: 3,
+  THROW: 3,
+  IF: 3,
+  COMPARISON: 4,
+  ADDITIVE: 5,
+  MULTIPLICATIVE: 6,
+  UNARY: 7,
+  LOGICAL_NOT: 8,
+  PREFIX_INCREMENT: 9,
+  PREFIX_DECREMENT: 9,
+  POSTFIX_INCREMENT: 10,
+  POSTFIX_DECREMENT: 10,
 };
 
 module.exports = grammar({
   name: 'brightscript',
 
   extras: ($) => [/[\n]/, /\s/, $.comment],
+
+  externals: ($) => [
+    $._empty
+  ],
 
   inline: ($) => [
     $.function_impl,
@@ -28,6 +33,10 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$.variable_declarator, $._prefix_exp],
+    [$._expression, $._var],
+    [$.property_identifier, $.identifier],
+    [$.method_signature, $.sub_statement],
+    [$.method_signature, $.function_statement],
   ],
 
   rules: {
@@ -47,7 +56,10 @@ module.exports = grammar({
 
     function_start: () => /function/i,
 
-    function_statement: $ => seq(
+    function_statement: $ => alias($._function_statement, 'function_declaration'),
+
+    _function_statement: $ => seq(
+      repeat($.decorator),
       seq($.function_start, /\s*/, field("name", $.identifier)),
       $.function_impl
     ),
@@ -66,7 +78,10 @@ module.exports = grammar({
 
     sub_start: () => /sub/i,
 
-    sub_statement: $ => seq(
+    sub_statement: $ => alias($._sub_statement, 'function_declaration'),
+
+    _sub_statement: $ => seq(
+      repeat($.decorator),
       seq($.sub_start, /\s*/, field("name", $.identifier)),
       $.sub_impl
     ),
@@ -83,10 +98,16 @@ module.exports = grammar({
     ),
 
     _statement: $ => prec.right(1, choice(
-      $.sub_statement,
-      $.function_statement,
+      $.function_declaration,  // BrighterScript function/sub declaration
+      $.sub_statement,  // Legacy BrightScript
+      $.function_statement,  // Legacy BrightScript
       $.library_statement,
       $.constant,
+      $.class_declaration,
+      $.interface_declaration,
+      $.namespace_declaration,
+      $.enum_declaration,
+      $.import_declaration,
       $.if_statement,
       $.conditional_compl,
       $.while_statement,
@@ -110,12 +131,22 @@ module.exports = grammar({
     )),
 
     _expression: $ => choice(
+      $.call_expression,
+      $.member_expression,
+      $.identifier,
       $.prefix_exp,
+      $.string,
+      $.number,
       $.literal,
       $.binary_expression,
       $.unary_expression,
       $.annonymous_sub,
-      $.annonymous_function
+      $.annonymous_function,
+      $.source_literal,
+      $.template_string,
+      $.regex,
+      $.ternary_expression,
+      $.super
     ),
 
     conditional_compl: $ => seq(
@@ -258,12 +289,12 @@ module.exports = grammar({
     ),
 
     return_statement: $ => prec.right(PREC.RETURN, seq(
-      alias(/return/i, $.return),
-      optional(field('value', $._expression))
+      /return/i,
+      optional($._expression)
     )),
 
     assignment_statement: $ => prec(PREC.ASSIGNMENT, seq(
-      field('left', $.variable_declarator),
+      field('left', $._var),
       field('operator', choice('=', '+=', '-=', '*=', '/=', '\\=', '<<=', '>>=')),
       field('right', $._expression)
     )),
@@ -304,29 +335,19 @@ module.exports = grammar({
       field('name', $.identifier),
       optional(seq('=', $._expression)),
       optional(
-        $.type_specifier
+        field('type', $.type_annotation)
       )
     ),
 
-    return_type: $ => $.type_specifier,
+    return_type: $ => field('return_type', $.type_annotation),
 
-    type_specifier: $ => seq(
-      $.as,
-      field('type', choice(
-        /boolean/i,
-        /integer/i,
-        /float/i,
-        /double/i,
-        /string/i,
-        /object/i,
-        /dynamic/i,
-        /void/i
-      ))
+    type_annotation: $ => seq(
+      /as/i,
+      $.type_identifier
     ),
 
     _prefix_exp: ($) =>
       choice(
-        $._var,
         $.function_call,
         seq($.left_paren, $._expression, $.right_paren)
       ),
@@ -344,57 +365,39 @@ module.exports = grammar({
     variable_declarator: ($) => $._var,
 
     _var: ($) =>
-      prec.right(1, choice(
+      choice(
         $.identifier,
-        seq($.prefix_exp, choice('[', '?['), $._expression, ']'),
-        seq($.prefix_exp, choice('.', '?.'), $.identifier),
-      )),
+        $.member_expression,
+        $.array_access_expression
+      ),
 
     // Expressions
     call_expression: $ => prec(15,seq(
       field('function', choice(
         $.identifier,
-        $.property_access_expression
+        $.property_access_expression,
+        $.member_expression
       )),
-      field('arguments', $.parenthesized_expression)
+      field('arguments', $.arguments)
     )),
 
     binary_expression: $ => choice(
-      $.logical_expression,
-      $.comparison_expression,
-      $.arithmetic_expression
+      prec.left(PREC.LOGICAL, seq(field('left', $._expression), field('operator', $.and), field('right', $._expression))),
+      prec.left(PREC.LOGICAL, seq(field('left', $._expression), field('operator', $.or),  field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.equals),   field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.not_equals),  field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.less_than),   field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.less_than_or_equal),  field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.greater_than),   field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.greater_than_or_equal),  field('right', $._expression))),
+      prec.left(PREC.COMPARISON, seq(field('left', $._expression), field('operator', $.null_coalescing),  field('right', $._expression))),
+      prec.left(PREC.ADDITIVE, seq(field('left', $._expression), field('operator', $.plus), field('right', $._expression))),
+      prec.left(PREC.ADDITIVE, seq(field('left', $._expression), field('operator', $.minus), field('right', $._expression))),
+      prec.left(PREC.MULTIPLICATIVE, seq(field('left', $._expression), field('operator', $.multiply),  field('right', $._expression))),
+      prec.left(PREC.MULTIPLICATIVE, seq(field('left', $._expression), field('operator', $.divide),  field('right', $._expression))),
+      prec.left(PREC.MULTIPLICATIVE, seq(field('left', $._expression), field('operator', $.backslash),  field('right', $._expression))),
+      prec.left(PREC.MULTIPLICATIVE, seq(field('left', $._expression), field('operator', $.mod), field('right', $._expression)))
     ),
-
-    logical_expression: $ => prec.left(PREC.LOGICAL, choice(
-      seq(field('left', $._expression), field('operator', $.and), field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', $.or),  field('right', $._expression))
-    )),
-
-    comparison_expression: $ => prec.left(PREC.COMPARISON, choice(
-      seq(field('left', $._expression), field('operator', '='),   field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '<>'),  field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '<'),   field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '<='),  field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '>'),   field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '>='),  field('right', $._expression)),
-    )),
-
-    arithmetic_expression: $ => choice(
-      $.additive_expression,
-      $.multiplicative_expression
-    ),
-
-    additive_expression: $ => prec.left(PREC.ADDITIVE, choice(
-      seq(field('left', $._expression), field('operator', '+'), field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '-'), field('right', $._expression))
-    )),
-
-    multiplicative_expression: $ => prec.left(PREC.MULTIPLICATIVE, choice(
-      seq(field('left', $._expression), field('operator', '*'),  field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '/'),  field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', '\\'),  field('right', $._expression)),
-      seq(field('left', $._expression), field('operator', $.mod), field('right', $._expression))
-    )),
 
     unary_expression: $ => prec.right(PREC.UNARY, choice(
       $.logical_not_expression,
@@ -406,6 +409,12 @@ module.exports = grammar({
     )),
 
     parenthesized_expression: $ => seq(
+      '(',
+      commaSep($._expression),
+      ')'
+    ),
+
+    arguments: $ => seq(
       '(',
       commaSep($._expression),
       ')'
@@ -426,6 +435,17 @@ module.exports = grammar({
       ))
     )),
 
+    // Member expression (for class member access like m.name or super.method())
+    member_expression: $ => prec.left(3, seq(
+      field('object', choice(
+        $.identifier,
+        $.super,
+        $.member_expression
+      )),
+      '.',
+      field('property', $.property_identifier)
+    )),
+
     array_access_expression: $ => prec(1, seq(
       field('array', choice(
         $.identifier,
@@ -444,8 +464,6 @@ module.exports = grammar({
     literal: $ => choice(
       $.invalid,
       $.boolean,
-      $.number,
-      $.string,
       $.array,
       $.assoc_array
     ),
@@ -460,7 +478,7 @@ module.exports = grammar({
     string: $ => seq(
       '"',
       repeat(choice(
-        alias(/[^"]+/, $.string_contents),
+        alias(/[^"]+/, $.string_content),
         alias(seq('""'), $.escaped_quote)
       )),
       '"'
@@ -497,6 +515,175 @@ module.exports = grammar({
     mod: $ => /mod/i,
     as: $ => /as/i,
 
+    // Operator tokens (for field assignment in binary expressions)
+    plus: $ => '+',
+    minus: $ => '-',
+    multiply: $ => '*',
+    divide: $ => '/',
+    backslash: $ => '\\',
+    equals: $ => '=',
+    not_equals: $ => '<>',
+    less_than: $ => '<',
+    less_than_or_equal: $ => '<=',
+    greater_than: $ => '>',
+    greater_than_or_equal: $ => '>=',
+    null_coalescing: $ => '??',
+
+    // Enum declaration
+    enum_declaration: $ => seq(
+      /enum/i,
+      field('name', $.identifier),
+      optional(field('body', $.enum_body)),
+      /end\s+enum/i
+    ),
+
+    enum_body: $ => repeat1(
+      $.enum_member
+    ),
+
+    enum_member: $ => seq(
+      field('name', $.identifier),
+      optional(seq('=', field('value', $.number)))
+    ),
+
+    // Import declaration
+    import_declaration: $ => seq(
+      /import/i,
+      field('source', $.string),
+      optional(seq(
+        /as/i,
+        field('alias', $.identifier)
+      ))
+    ),
+
+    // Decorators
+    decorator: $ => seq(
+      '@',
+      field('name', $.identifier),
+      optional(field('arguments', $.arguments))
+    ),
+
+    // Class declarations
+    class_declaration: $ => prec.right(seq(
+      repeat($.decorator),
+      /class/i,
+      field('name', $.identifier),
+      optional(field('superclass', $.extends_clause)),
+      field('body', $.class_body),
+      /end\s+class/i
+    )),
+
+    class_body: $ => choice(
+      repeat1(choice(
+        $.field_declaration,
+        $.method_definition
+      )),
+      // Empty class body - use external token
+      $._empty
+    ),
+
+    extends_clause: $ => seq(
+      /extends/i,
+      $.type_identifier
+    ),
+
+    field_declaration: $ => seq(
+      optional(choice(
+        $.accessibility_modifier,
+        $.static_modifier,
+        $.override_modifier
+      )),
+      field('name', $.identifier),
+      field('type', $.type_annotation)
+    ),
+
+    method_definition: $ => seq(
+      optional(choice(
+        $.accessibility_modifier,
+        $.static_modifier,
+        $.override_modifier
+      )),
+      choice(/function/i, /sub/i),
+      field('name', $.identifier),
+      field('parameters', $.parameter_list),
+      optional(field('return_type', $.type_annotation)),
+      field('body', $.statement_block),
+      /end\s+(function|sub)/i
+    ),
+
+    statement_block: $ => repeat1($._statement),
+
+    accessibility_modifier: $ => choice(
+      /public/i,
+      /private/i,
+      /protected/i
+    ),
+
+    static_modifier: $ => /static/i,
+    override_modifier: $ => /override/i,
+
+    // Interface declarations
+    interface_declaration: $ => seq(
+      /interface/i,
+      field('name', $.identifier),
+      field('body', $.interface_body),
+      /end\s+interface/i
+    ),
+
+    interface_body: $ => choice(
+      prec(1, repeat1($.method_signature)),
+      // Empty interface body - use external token
+      prec(0, $._empty)
+    ),
+
+    method_signature: $ => prec.dynamic(10, seq(
+      choice(
+        alias(token(prec(10, /sub/i)), 'sub'),
+        alias(token(prec(10, /function/i)), 'function')
+      ),
+      field('name', $.identifier),
+      field('parameters', $.parameter_list),
+      optional(field('return_type', $.type_annotation))
+    )),
+
+    // Namespace declarations
+    namespace_declaration: $ => seq(
+      /namespace/i,
+      field('name', $.namespace_name),
+      field('body', $.namespace_body),
+      /end\s+namespace/i
+    ),
+
+    namespace_name: $ => sep1($.identifier, '.'),
+
+    namespace_body: $ => repeat1(choice(
+      $.class_declaration,
+      $.function_declaration
+    )),
+
+    // BrighterScript function declaration (used in namespaces, as top-level declarations)
+    function_declaration: $ => seq(
+      repeat($.decorator),
+      choice(/function/i, /sub/i),
+      field('name', $.identifier),
+      field('parameters', $.parameter_list),
+      optional(field('return_type', $.type_annotation)),
+      field('body', $.statement_block),
+      /end\s+(function|sub)/i
+    ),
+
+    // Type annotations
+    type_annotation: $ => seq(
+      /as/i,
+      $.type_identifier
+    ),
+
+    type_identifier: $ => token(prec(0, /[a-zA-Z_][a-zA-Z0-9_]*/)),
+    property_identifier: $ => token(prec(0, /[a-zA-Z_][a-zA-Z0-9_]*/)),
+
+    // Super keyword for inheritance
+    super: $ => /super/i,
+
     end_sub: $ => /end\s+sub/i,
     end_function: $ => /end\s+function/i,
     end_if: $ => /end\s+if/i,
@@ -516,6 +703,56 @@ module.exports = grammar({
     ),
 
     _new_line: $ => /\r?\n/,
+
+    // Source literals for introspection
+    source_literal: $ => choice(
+      /SOURCE_FILE_PATH/,
+      /SOURCE_LINE_NUM/,
+      /SOURCE_FUNCTION_NAME/,
+      /SOURCE_NAMESPACE_NAME/,
+      /SOURCE_NAMESPACE_ROOT_NAME/,
+      /SOURCE_LOCATION/,
+      /PKG_PATH/,
+      /PKG_LOCATION/
+    ),
+
+    // Template strings with interpolation
+    template_string: $ => seq(
+      '`',
+      repeat(choice(
+        $.template_fragment,
+        $.template_interpolation
+      )),
+      '`'
+    ),
+
+    template_fragment: $ => token.immediate(prec(1, /[^`$]+/)),
+
+    template_interpolation: $ => seq(
+      '${',
+      $._expression,
+      '}'
+    ),
+
+    // Regular expressions
+    regex: $ => seq(
+      '/',
+      field('pattern', $.regex_pattern),
+      '/',
+      optional(field('flags', $.regex_flags))
+    ),
+
+    regex_pattern: $ => token.immediate(prec(1, /([^\/\n\r]|\\.)+/)),
+    regex_flags: $ => token.immediate(/[igms]+/),
+
+    // Ternary operator
+    ternary_expression: $ => prec.right(PREC.TERNARY, seq(
+      field('condition', $._expression),
+      '?',
+      field('consequence', $._expression),
+      ':',
+      field('alternative', $._expression)
+    )),
 
     // Miscellaneous
     identifier: $ => token(prec(0, /[a-zA-Z_][a-zA-Z0-9_]*/))
@@ -556,4 +793,8 @@ function commaSep1(rule) {
 
 function any_amount_of() {
   return repeat(seq(...arguments));
+}
+
+function sep1(rule, separator) {
+  return seq(rule, repeat(seq(separator, rule)));
 }

@@ -2,11 +2,7 @@
 (identifier) @variable
 
 ; Function declaration
-(function_statement
-  name: (identifier) @function)
-
-; Sub declaration
-(sub_statement
+(function_declaration
   name: (identifier) @function)
 
 [
@@ -21,40 +17,41 @@
   name: (identifier) @variable.parameter)
 
 ; Types
-(type_specifier) @type
+(type_annotation) @type
+(type_identifier) @type
 
 ; Variables
 ; Base variable in variable declarator (immediate child of prefix_exp)
-(variable_declarator
-  (prefix_exp
-    (identifier) @variable
-    (#not-has-ancestor? @variable prefix_exp)))
+; (variable_declarator
+;   (prefix_exp
+;     (identifier) @variable
+;     (#not-has-ancestor? @variable prefix_exp)))
 
 ; Properties in variable declarator
-(variable_declarator
-  (prefix_exp)
-  (identifier) @property)
+; (variable_declarator
+;   (prefix_exp)
+;   (identifier) @property)
 
-(multiplicative_expression
+(binary_expression
   operator: (_) @keyword.operator)
 
 (logical_not_expression
   operator: (_) @keyword.operator)
 
-(logical_expression
-  operator: (_) @keyword.operator)
+; (logical_expression
+;   operator: (_) @keyword.operator)
 
 ; Property access
 ; First identifier in a chain (base variable)
-(prefix_exp
-  .
-  (identifier) @variable
-  (#not-has-ancestor? @variable prefix_exp))
+; (prefix_exp
+;   .
+;   (identifier) @variable
+;   (#not-has-ancestor? @variable prefix_exp))
 
 ; All other identifiers in a chain (properties)
-(prefix_exp
-  (prefix_exp)
-  (identifier) @property)
+; (prefix_exp
+;   (prefix_exp)
+;   (identifier) @property)
 
 ; Function calls
 (function_call
@@ -92,7 +89,7 @@
   (end_try)
 ] @keyword.exception
 
-(return) @keyword.return
+(return_statement) @keyword.return
 
 (print) @function.builtin
 
@@ -100,16 +97,21 @@
 
 ; Operators
 [
-  "="
-  "<>"
-  "<"
-  "<="
-  ">"
-  ">="
-  "+"
-  "-"
-  "*"
-  "/"
+  (equals)
+  (not_equals)
+  (less_than)
+  (less_than_or_equal)
+  (greater_than)
+  (greater_than_or_equal)
+  (plus)
+  (minus)
+  (multiply)
+  (divide)
+  (backslash)
+  (mod)
+  (and)
+  (or)
+  (null_coalescing)
 ] @operator
 
 ; Literals
@@ -125,21 +127,21 @@
 (comment) @comment @spell
 
 ; Punctuation
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-  "?["
-] @punctuation.bracket
-
-[
-  "."
-  ","
-  "?."
-] @punctuation.delimiter
+; [
+;   "("
+;   ")"
+;   "["
+;   "]"
+;   "{"
+;   "}"
+;   "?["
+; ] @punctuation.bracket
+;
+; [
+;   "."
+;   ","
+;   "?."
+; ] @punctuation.delimiter
 
 ; Special highlights for library statements
 (library_statement) @keyword.import
@@ -164,14 +166,14 @@
 ] @operator
 
 ; Comparison operators
-(comparison_expression
-  [
-    "="
-    "<>"
-    "<"
-    "<="
-    ">"
-    ">="
-  ] @operator)
+; (comparison_expression
+;   [
+;     "="
+;     "<>"
+;     "<"
+;     "<="
+;     ">"
+;     ">="
+;   ] @operator)
 
-(as) @keyword.operator
+; (as) @keyword.operator

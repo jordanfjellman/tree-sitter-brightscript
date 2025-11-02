@@ -169,7 +169,7 @@ end class
           (return_statement
             (binary_expression
               left: (identifier)
-              operator: ">"
+              operator: (greater_than)
               right: (number)))))
       (method_definition
         (accessibility_modifier)
@@ -199,7 +199,7 @@ end class
                     left: (member_expression
                       object: (identifier)
                       property: (property_identifier))
-                    operator: "+"
+                    operator: (plus)
                     right: (identifier)))
                 (end_statement
                   (end_if))))))))))
@@ -238,7 +238,7 @@ end class
           (return_statement
             (binary_expression
               left: (identifier)
-              operator: "+"
+              operator: (plus)
               right: (identifier))))))))
 
 ==================
@@ -293,11 +293,11 @@ end class
             (binary_expression
               left: (binary_expression
                 left: (number)
-                operator: "*"
+                operator: (multiply)
                 right: (member_expression
                   object: (identifier)
                   property: (property_identifier)))
-              operator: "*"
+              operator: (multiply)
               right: (member_expression
                 object: (identifier)
                 property: (property_identifier)))))))))
