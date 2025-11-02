@@ -1,0 +1,130 @@
+==================
+Basic null coalescing
+==================
+
+sub test()
+    value = someVariable ?? someDefault
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (identifier)
+          operator: "??"
+          right: (identifier))))))
+
+==================
+Null coalescing with literal
+==================
+
+sub test()
+    userId = createdUserId ?? -1
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (identifier)
+          operator: "??"
+          right: (number))))))
+
+==================
+Null coalescing with property access
+==================
+
+sub test()
+    name = userA.name ?? userB.name
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (member_expression
+            object: (identifier)
+            property: (property_identifier))
+          operator: "??"
+          right: (member_expression
+            object: (identifier)
+            property: (property_identifier)))))))
+
+==================
+Nested null coalescing
+==================
+
+sub test()
+    user = getUser(userId ?? globalSettings.defaultUserId) ?? getDefaultUser()
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (call_expression
+            function: (identifier)
+            arguments: (arguments
+              (binary_expression
+                left: (identifier)
+                operator: "??"
+                right: (member_expression
+                  object: (identifier)
+                  property: (property_identifier)))))
+          operator: "??"
+          right: (call_expression
+            function: (identifier)
+            arguments: (arguments)))))))
+
+==================
+Multiple null coalescing chain
+==================
+
+sub test()
+    value = first ?? second ?? third ?? "default"
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (binary_expression
+            left: (binary_expression
+              left: (identifier)
+              operator: "??"
+              right: (identifier))
+            operator: "??"
+            right: (identifier))
+          operator: "??"
+          right: (string
+            (string_content)))))))

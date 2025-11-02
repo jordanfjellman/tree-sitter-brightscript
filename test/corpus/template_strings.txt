@@ -1,0 +1,97 @@
+==================
+Basic template string
+==================
+
+sub test()
+    name = "World"
+    message = `Hello ${name}!`
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (string
+          (string_content)))
+      (assignment_statement
+        left: (identifier)
+        right: (template_string
+          (template_fragment)
+          (template_interpolation
+            (identifier))
+          (template_fragment))))))
+
+==================
+Template string with multiple substitutions
+==================
+
+sub test()
+    first = "John"
+    last = "Doe"
+    message = `Full name: ${first} ${last}`
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (string
+          (string_content)))
+      (assignment_statement
+        left: (identifier)
+        right: (string
+          (string_content)))
+      (assignment_statement
+        left: (identifier)
+        right: (template_string
+          (template_fragment)
+          (template_interpolation
+            (identifier))
+          (template_fragment)
+          (template_interpolation
+            (identifier))
+          (template_fragment))))))
+
+==================
+Template string with expression
+==================
+
+sub test()
+    x = 5
+    y = 10
+    message = `Sum: ${x + y}`
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (number))
+      (assignment_statement
+        left: (identifier)
+        right: (number))
+      (assignment_statement
+        left: (identifier)
+        right: (template_string
+          (template_fragment)
+          (template_interpolation
+            (binary_expression
+              left: (identifier)
+              operator: "+"
+              right: (identifier)))
+          (template_fragment))))))

@@ -1,0 +1,102 @@
+==================
+Basic callfunc operator
+==================
+
+sub test()
+    node@.someMethod(1, 2, 3)
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (call_expression
+        function: (callfunc_invocation
+          object: (identifier)
+          method: (property_identifier))
+        arguments: (arguments
+          (number)
+          (number)
+          (number))))))
+
+==================
+Callfunc with no arguments
+==================
+
+sub test()
+    node@.doSomething()
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (call_expression
+        function: (callfunc_invocation
+          object: (identifier)
+          method: (property_identifier))
+        arguments: (arguments)))))
+
+==================
+Callfunc chain
+==================
+
+sub test()
+    result = parent@.getChild()@.getValue(123)
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (call_expression
+          function: (callfunc_invocation
+            object: (call_expression
+              function: (callfunc_invocation
+                object: (identifier)
+                method: (property_identifier))
+              arguments: (arguments))
+            method: (property_identifier))
+          arguments: (arguments
+            (number)))))))
+
+==================
+Callfunc with expression arguments
+==================
+
+sub test()
+    value = node@.calculate(x + y, data.property)
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (call_expression
+          function: (callfunc_invocation
+            object: (identifier)
+            method: (property_identifier))
+          arguments: (arguments
+            (binary_expression
+              left: (identifier)
+              operator: "+"
+              right: (identifier))
+            (member_expression
+              object: (identifier)
+              property: (property_identifier))))))))

@@ -1,0 +1,193 @@
+==================
+SOURCE_FILE_PATH literal
+==================
+
+sub test()
+    print SOURCE_FILE_PATH
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (source_literal)))))
+
+==================
+SOURCE_LINE_NUM literal
+==================
+
+sub test()
+    print SOURCE_LINE_NUM
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (source_literal)))))
+
+==================
+SOURCE_FUNCTION_NAME literal
+==================
+
+namespace Human.Versus.Zombie
+    function Eat()
+        print SOURCE_FUNCTION_NAME
+    end function
+end namespace
+
+---
+
+(source_file
+  (namespace_declaration
+    name: (namespace_name
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (namespace_body
+      (function_declaration
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (print_statement
+            (source_literal)))))))
+
+==================
+SOURCE_NAMESPACE_NAME literal
+==================
+
+namespace Human.Versus.Zombie
+    function Eat()
+        print SOURCE_NAMESPACE_NAME
+    end function
+end namespace
+
+---
+
+(source_file
+  (namespace_declaration
+    name: (namespace_name
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (namespace_body
+      (function_declaration
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (print_statement
+            (source_literal)))))))
+
+==================
+SOURCE_NAMESPACE_ROOT_NAME literal
+==================
+
+namespace Human.Versus.Zombie
+    function Eat()
+        print SOURCE_NAMESPACE_ROOT_NAME
+    end function
+end namespace
+
+---
+
+(source_file
+  (namespace_declaration
+    name: (namespace_name
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (namespace_body
+      (function_declaration
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (print_statement
+            (source_literal)))))))
+
+==================
+SOURCE_LOCATION literal
+==================
+
+function main()
+    print SOURCE_LOCATION
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (source_literal)))))
+
+==================
+PKG_PATH literal
+==================
+
+function main()
+    print PKG_PATH
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (source_literal)))))
+
+==================
+PKG_LOCATION literal
+==================
+
+function main()
+    print PKG_LOCATION
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (source_literal)))))
+
+==================
+Multiple source literals
+==================
+
+sub test()
+    logMessage = SOURCE_FILE_PATH + ":" + SOURCE_LINE_NUM
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (binary_expression
+          left: (binary_expression
+            left: (source_literal)
+            operator: "+"
+            right: (string
+              (string_content)))
+          operator: "+"
+          right: (source_literal))))))

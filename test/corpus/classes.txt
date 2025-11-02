@@ -1,0 +1,343 @@
+==================
+Basic class declaration
+==================
+
+class Person
+    name as string
+    age as integer
+    
+    sub new()
+        m.name = "Unknown"
+        m.age = 0
+    end sub
+    
+    function getName() as string
+        return m.name
+    end function
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (method_definition
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (assignment_statement
+            left: (member_expression
+              object: (identifier)
+              property: (property_identifier))
+            right: (string
+              (string_content)))
+          (assignment_statement
+            left: (member_expression
+              object: (identifier)
+              property: (property_identifier))
+            right: (number))))
+      (method_definition
+        name: (identifier)
+        parameters: (parameter_list)
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (return_statement
+            (member_expression
+              object: (identifier)
+              property: (property_identifier))))))))
+
+==================
+Class with inheritance
+==================
+
+class Employee extends Person
+    employeeId as integer
+    
+    sub new(id as integer)
+        super.new()
+        m.employeeId = id
+    end sub
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    superclass: (extends_clause
+      (type_identifier))
+    body: (class_body
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (method_definition
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            name: (identifier)
+            type: (type_annotation
+              (type_identifier))))
+        body: (statement_block
+          (call_expression
+            function: (member_expression
+              object: (super)
+              property: (property_identifier))
+            arguments: (arguments))
+          (assignment_statement
+            left: (member_expression
+              object: (identifier)
+              property: (property_identifier))
+            right: (identifier)))))))
+
+==================
+Class with access modifiers
+==================
+
+class Account
+    private balance as float
+    protected accountNumber as string
+    public owner as string
+    
+    public sub new()
+        m.balance = 0.0
+    end sub
+    
+    private function validateAmount(amount as float) as boolean
+        return amount > 0
+    end function
+    
+    public function deposit(amount as float) as void
+        if m.validateAmount(amount) then
+            m.balance = m.balance + amount
+        end if
+    end function
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (field_declaration
+        (accessibility_modifier)
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (field_declaration
+        (accessibility_modifier)
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (field_declaration
+        (accessibility_modifier)
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (method_definition
+        (accessibility_modifier)
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (assignment_statement
+            left: (member_expression
+              object: (identifier)
+              property: (property_identifier))
+            right: (number))))
+      (method_definition
+        (accessibility_modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            name: (identifier)
+            type: (type_annotation
+              (type_identifier))))
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (return_statement
+            (binary_expression
+              left: (identifier)
+              operator: ">"
+              right: (number)))))
+      (method_definition
+        (accessibility_modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            name: (identifier)
+            type: (type_annotation
+              (type_identifier))))
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (if_statement
+            (multi_line_if
+              condition: (call_expression
+                function: (member_expression
+                  object: (identifier)
+                  property: (property_identifier))
+                arguments: (arguments
+                  (identifier)))
+              (if_block
+                (assignment_statement
+                  left: (member_expression
+                    object: (identifier)
+                    property: (property_identifier))
+                  right: (binary_expression
+                    left: (member_expression
+                      object: (identifier)
+                      property: (property_identifier))
+                    operator: "+"
+                    right: (identifier)))
+                (end_statement
+                  (end_if))))))))))
+
+==================
+Static class member
+==================
+
+class MathUtils
+    static function add(a as integer, b as integer) as integer
+        return a + b
+    end function
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (method_definition
+        (static_modifier)
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            name: (identifier)
+            type: (type_annotation
+              (type_identifier)))
+          (parameter
+            name: (identifier)
+            type: (type_annotation
+              (type_identifier))))
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (return_statement
+            (binary_expression
+              left: (identifier)
+              operator: "+"
+              right: (identifier))))))))
+
+==================
+Override method
+==================
+
+class Shape
+    function getArea() as float
+        return 0.0
+    end function
+end class
+
+class Circle extends Shape
+    radius as float
+    
+    override function getArea() as float
+        return 3.14159 * m.radius * m.radius
+    end function
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (method_definition
+        name: (identifier)
+        parameters: (parameter_list)
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (return_statement
+            (number))))))
+  (class_declaration
+    name: (identifier)
+    superclass: (extends_clause
+      (type_identifier))
+    body: (class_body
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (method_definition
+        (override_modifier)
+        name: (identifier)
+        parameters: (parameter_list)
+        return_type: (type_annotation
+          (type_identifier))
+        body: (statement_block
+          (return_statement
+            (binary_expression
+              left: (binary_expression
+                left: (number)
+                operator: "*"
+                right: (member_expression
+                  object: (identifier)
+                  property: (property_identifier)))
+              operator: "*"
+              right: (member_expression
+                object: (identifier)
+                property: (property_identifier)))))))))
+
+==================
+Multiple classes in file
+==================
+
+class Point
+    x as integer
+    y as integer
+end class
+
+class Rectangle
+    topLeft as Point
+    bottomRight as Point
+end class
+
+---
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))))
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier)))
+      (field_declaration
+        name: (identifier)
+        type: (type_annotation
+          (type_identifier))))))

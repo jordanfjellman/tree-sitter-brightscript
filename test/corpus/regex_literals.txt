@@ -1,0 +1,100 @@
+==================
+Basic regex literal
+==================
+
+sub test()
+    pattern = /hello world/
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (regex
+          pattern: (regex_pattern))))))
+
+==================
+Regex with flags
+==================
+
+sub test()
+    pattern = /hello world/ig
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (regex
+          pattern: (regex_pattern)
+          flags: (regex_flags))))))
+
+==================
+Regex with escaped slash
+==================
+
+sub test()
+    pattern = /hello\/world/
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (regex
+          pattern: (regex_pattern))))))
+
+==================
+Regex in print statement
+==================
+
+sub test()
+    print /hello world/ig
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (print_statement
+        (regex
+          pattern: (regex_pattern)
+          flags: (regex_flags))))))
+
+==================
+Complex regex pattern
+==================
+
+sub test()
+    emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (statement_block
+      (assignment_statement
+        left: (identifier)
+        right: (regex
+          pattern: (regex_pattern))))))

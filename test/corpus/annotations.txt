@@ -1,0 +1,141 @@
+==================
+Single decorator on class
+==================
+
+@expose
+class MyComp
+end class
+
+---
+
+(source_file
+  (class_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    body: (class_body)))
+
+==================
+Multiple decorators on function
+==================
+
+@task @export_fields([content, result])
+function init()
+end function
+
+---
+
+(source_file
+  (function_declaration
+    (decorator
+      name: (identifier))
+    (decorator
+      name: (identifier)
+      arguments: (arguments
+        (array
+          (identifier)
+          (identifier))))
+    name: (identifier)
+    parameters: (parameter_list)))
+
+==================
+Decorator with complex parameters
+==================
+
+@configure(
+    "value",
+    42,
+    true,
+    {
+        hello: "world",
+        scene: "MainScene"
+    }
+)
+function main()
+end function
+
+---
+
+(source_file
+  (function_declaration
+    (decorator
+      name: (identifier)
+      arguments: (arguments
+        (string
+          (string_content))
+        (number)
+        (boolean)
+        (associative_array
+          (pair
+            key: (identifier)
+            value: (string
+              (string_content)))
+          (pair
+            key: (identifier)
+            value: (string
+              (string_content))))))
+    name: (identifier)
+    parameters: (parameter_list)))
+
+==================
+Decorator on previous line
+==================
+
+@deprecated
+sub oldMethod()
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    parameters: (parameter_list)))
+
+==================
+Decorator inline
+==================
+
+@inline function quickCalc() as integer
+    return 42
+end function
+
+---
+
+(source_file
+  (function_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (type_annotation
+      (type_identifier))
+    body: (statement_block
+      (return_statement
+        (number)))))
+
+==================
+Decorator with no parameters
+==================
+
+@override
+function getValue() as string
+    return "value"
+end function
+
+---
+
+(source_file
+  (function_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (type_annotation
+      (type_identifier))
+    body: (statement_block
+      (return_statement
+        (string
+          (string_content))))))

@@ -1,0 +1,76 @@
+==================
+Basic enum declaration
+==================
+
+enum Color
+    Red
+    Green
+    Blue
+end enum
+
+---
+
+(source_file
+  (enum_declaration
+    name: (identifier)
+    body: (enum_body
+      (enum_member
+        name: (identifier))
+      (enum_member
+        name: (identifier))
+      (enum_member
+        name: (identifier)))))
+
+==================
+Enum with explicit values
+==================
+
+enum HttpStatus
+    OK = 200
+    NotFound = 404
+    ServerError = 500
+end enum
+
+---
+
+(source_file
+  (enum_declaration
+    name: (identifier)
+    body: (enum_body
+      (enum_member
+        name: (identifier)
+        value: (number))
+      (enum_member
+        name: (identifier)
+        value: (number))
+      (enum_member
+        name: (identifier)
+        value: (number)))))
+
+==================
+Enum with mixed values
+==================
+
+enum Priority
+    Low = 1
+    Medium
+    High = 10
+    Critical
+end enum
+
+---
+
+(source_file
+  (enum_declaration
+    name: (identifier)
+    body: (enum_body
+      (enum_member
+        name: (identifier)
+        value: (number))
+      (enum_member
+        name: (identifier))
+      (enum_member
+        name: (identifier)
+        value: (number))
+      (enum_member
+        name: (identifier)))))

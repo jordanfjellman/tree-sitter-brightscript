@@ -1,0 +1,65 @@
+==================
+Const with number
+==================
+
+const MAX_USERS = 100
+
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (number)))
+
+==================
+Const with string
+==================
+
+const API_KEY = "abc123"
+
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (string
+      (string_content))))
+
+==================
+Multiple const declarations
+==================
+
+const MAX_USERS = 100
+const API_KEY = "abc123"
+const TIMEOUT = 5000
+
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (number))
+  (const_declaration
+    name: (identifier)
+    value: (string
+      (string_content)))
+  (const_declaration
+    name: (identifier)
+    value: (number)))
+
+==================
+Const with boolean
+==================
+
+const DEBUG_MODE = true
+const PRODUCTION = false
+
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (boolean))
+  (const_declaration
+    name: (identifier)
+    value: (boolean)))

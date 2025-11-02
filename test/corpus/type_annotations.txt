@@ -1,0 +1,82 @@
+==================
+Generic type annotation
+==================
+
+function getItems() as roArray<string>
+    return ["item1", "item2"]
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (type_annotation
+      (generic_type
+        name: (type_identifier)
+        type_arguments: (type_arguments
+          (type_identifier))))
+    body: (statement_block
+      (return_statement
+        (array
+          (string
+            (string_content))
+          (string
+            (string_content)))))))
+
+==================
+Multiple generic parameters
+==================
+
+function getDictionary() as roAssociativeArray<string, integer>
+    return {}
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (type_annotation
+      (generic_type
+        name: (type_identifier)
+        type_arguments: (type_arguments
+          (type_identifier)
+          (type_identifier))))
+    body: (statement_block
+      (return_statement
+        (associative_array)))))
+
+==================
+Nested generic types
+==================
+
+function getNestedArray() as roArray<roArray<integer>>
+    return [[1, 2], [3, 4]]
+end function
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    return_type: (type_annotation
+      (generic_type
+        name: (type_identifier)
+        type_arguments: (type_arguments
+          (generic_type
+            name: (type_identifier)
+            type_arguments: (type_arguments
+              (type_identifier))))))
+    body: (statement_block
+      (return_statement
+        (array
+          (array
+            (number)
+            (number))
+          (array
+            (number)
+            (number)))))))
