@@ -306,8 +306,6 @@ end sub
 single line if with multiple property access
 ==================
 
-
-
 sub init()
     if m.sessiontoken <> "" then m.addheader()
 end sub
@@ -315,33 +313,27 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (if_statement
-        (single_line_if
-          (if_start)
-          (binary_expression
-            (comparison_expression
-              (prefix_exp
-                (prefix_exp
-                  (identifier))
-                (identifier))
-              (literal
-                (string))))
-          (then)
-          (function_call
-            (prefix_exp
-              (prefix_exp
-                (identifier))
-              (identifier))
-            (parenthesized_expression)))))
-    (end_statement
-      (end_sub))))
-
-
-
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (if_statement
+          (single_line_if
+            (if_start)
+            (binary_expression
+              (member_expression
+                (identifier)
+                (property_identifier))
+              (not_equals)
+              (string))
+            (then)
+            (call_expression
+              (member_expression
+                (identifier)
+                (property_identifier))
+              (arguments)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 single line if simple

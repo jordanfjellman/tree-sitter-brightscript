@@ -5,6 +5,10 @@ Generic type annotation
 
 
 
+
+
+
+
 function getItems() as roArray<string>
     return ["item1", "item2"]
 end function
@@ -31,9 +35,17 @@ end function
 
 
 
+
+
+
+
 ==================
 Multiple generic parameters
 ==================
+
+
+
+
 
 
 
@@ -61,9 +73,17 @@ end function
 
 
 
+
+
+
+
 ==================
 Nested generic types
 ==================
+
+
+
+
 
 
 

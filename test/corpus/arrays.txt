@@ -51,49 +51,34 @@ end sub
 array test 3
 ==================
 
-
-
-
 sub TestArrayElementAccess()
     myArray = [1, 2, 3, 4, 5]
     print myArray[1]
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (array
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number)))))
-      (print_statement
-        (print)
-        (prefix_exp
-          (prefix_exp
-            (identifier))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
           (literal
-            (number)))))
-    (end_statement
-      (end_sub))))
-
-
-
+            (array
+              (number)
+              (number)
+              (number)
+              (number)
+              (number))))
+        (print_statement
+          (print)
+          (array_access_expression
+            (identifier)
+            (number))))
+      (end_statement
+        (end_sub))))
 
 ==================
 array test 4
@@ -291,9 +276,6 @@ end sub
 array test 10
 ==================
 
-
-
-
 sub TestArrayAsArgument()
     myArray = [1, 2, 3, 4, 5]
     PrintArray(myArray)
@@ -302,61 +284,45 @@ end sub
 sub PrintArray(arr)
     print arr
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (array
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number)))))
-      (function_call
-        (prefix_exp
-          (identifier))
-        (parenthesized_expression
-          (prefix_exp
-            (identifier)))))
-    (end_statement
-      (end_sub)))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (array
+              (number)
+              (number)
+              (number)
+              (number)
+              (number))))
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier))))
+      (end_statement
+        (end_sub)))
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list
-      (parameter
-        (identifier)))
-    (block
-      (print_statement
-        (print)
-        (prefix_exp
-          (identifier))))
-    (end_statement
-      (end_sub))))
-
-
-
+      (sub_start)
+      (identifier)
+      (parameter_list
+        (parameter
+          (identifier)))
+      (block
+        (print_statement
+          (print)
+          (identifier)))
+      (end_statement
+        (end_sub))))
 
 ==================
 property access array
 ==================
-
-
-
 
 sub init()
     if test[3].ads[3] = "test" then
@@ -366,31 +332,27 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (if_statement
-        (multi_line_if
-          (if_start)
-          (binary_expression
-            (comparison_expression
-              (prefix_exp
-                (prefix_exp
-                  (prefix_exp
-                    (prefix_exp
-                      (identifier))
-                    (literal
-                      (number)))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (if_statement
+          (multi_line_if
+            (if_start)
+            (binary_expression
+              (array_access_expression
+                (property_access_expression
+                  (array_access_expression
+                    (identifier)
+                    (number))
                   (identifier))
-                (literal
-                  (number)))
-              (literal
-                (string
-                  (string_contents)))))
-          (then)
-          (if_block
-            (end_statement
-              (end_if))))))
-    (end_statement
-      (end_sub))))
+                (number))
+              (equals)
+              (string
+                (string_content)))
+            (then)
+            (if_block
+              (end_statement
+                (end_if))))))
+      (end_statement
+        (end_sub))))

@@ -5,6 +5,10 @@ Basic callfunc operator
 
 
 
+
+
+
+
 sub test()
     node@.someMethod(1, 2, 3)
 end sub
@@ -28,9 +32,17 @@ end sub
 
 
 
+
+
+
+
 ==================
 Callfunc with no arguments
 ==================
+
+
+
+
 
 
 
@@ -55,9 +67,17 @@ end sub
 
 
 
+
+
+
+
 ==================
 Callfunc chain
 ==================
+
+
+
+
 
 
 
@@ -89,9 +109,17 @@ end sub
 
 
 
+
+
+
+
 ==================
 Callfunc with expression arguments
 ==================
+
+
+
+
 
 
 

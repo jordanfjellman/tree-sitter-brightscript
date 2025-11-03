@@ -59,9 +59,6 @@ end class
 Class with inheritance
 ==================
 
-
-
-
 class Employee extends Person
     employeeId as integer
     
@@ -70,40 +67,36 @@ class Employee extends Person
         m.employeeId = id
     end sub
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    superclass: (extends_clause
+    (identifier)
+    (extends_clause
       (type_identifier))
-    body: (class_body
+    (class_body
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (method_definition
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        body: (statement_block
+        (statement_block
           (call_expression
-            function: (member_expression
-              object: (super)
-              property: (property_identifier))
-            arguments: (arguments))
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (arguments))
           (assignment_statement
-            left: (member_expression
-              object: (identifier)
-              property: (property_identifier))
-            right: (identifier)))))))
-
-
-
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (identifier)))))))
 
 ==================
 Class with access modifiers

@@ -5,6 +5,10 @@ Const with number
 
 
 
+
+
+
+
 const MAX_USERS = 100
 
 ---
@@ -17,9 +21,17 @@ const MAX_USERS = 100
 
 
 
+
+
+
+
 ==================
 Const with string
 ==================
+
+
+
+
 
 
 
@@ -37,9 +49,17 @@ const API_KEY = "abc123"
 
 
 
+
+
+
+
 ==================
 Multiple const declarations
 ==================
+
+
+
+
 
 
 
@@ -65,9 +85,17 @@ const TIMEOUT = 5000
 
 
 
+
+
+
+
 ==================
 Const with boolean
 ==================
+
+
+
+
 
 
 

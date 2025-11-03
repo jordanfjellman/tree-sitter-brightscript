@@ -103,6 +103,7 @@ module.exports = grammar({
       $.function_statement,  // Legacy BrightScript
       $.library_statement,
       $.constant,
+      $.const_declaration,
       $.class_declaration,
       $.interface_declaration,
       $.namespace_declaration,
@@ -125,6 +126,7 @@ module.exports = grammar({
       $.continue_for_statement,
       $.exit_for_statement,
       $.function_call,
+      $.call_expression,
       $.print_statement,
       $.throw_statement,
       $.increment_decrement_statement,
@@ -133,6 +135,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $.call_expression,
       $.member_expression,
+      $.array_access_expression,
       $.identifier,
       $.prefix_exp,
       $.string,
@@ -420,7 +423,7 @@ module.exports = grammar({
       ')'
     ),
 
-    property_access_expression: $ => prec.left(seq(
+    property_access_expression: $ => prec.left(2, seq(
       field('object', choice(
         $.identifier,
         $.property_access_expression,
@@ -450,6 +453,7 @@ module.exports = grammar({
       field('array', choice(
         $.identifier,
         $.array_access_expression,
+        $.property_access_expression,
         $.call_expression
       )),
       '[',
@@ -459,6 +463,16 @@ module.exports = grammar({
 
     comment: $ => seq("'", /.*/),
     constant: $ => seq("#const", $.assignment_statement),
+    const_declaration: $ => seq(
+      'const',
+      field('name', $.identifier),
+      '=',
+      field('value', choice(
+        $.number,
+        $.string,
+        $.boolean
+      ))
+    ),
 
     // Literals
     literal: $ => choice(
