@@ -32,11 +32,8 @@ module.exports = grammar({
   ],
 
   conflicts: ($) => [
-    [$.variable_declarator, $._prefix_exp],
     [$._expression, $._var],
     [$.property_identifier, $.identifier],
-    [$.method_signature, $.sub_statement],
-    [$.method_signature, $.function_statement],
   ],
 
   rules: {
@@ -60,9 +57,11 @@ module.exports = grammar({
 
     _function_statement: $ => seq(
       repeat($.decorator),
-      seq($.function_start, /\s*/, field("name", $.identifier)),
+      seq($.function_start, /\s*/, field("name", $.function_name)),
       $.function_impl
     ),
+    
+    function_name: $ => $.identifier,
 
     annonymous_function: $ => seq(
       seq($.function_start),
@@ -82,7 +81,7 @@ module.exports = grammar({
 
     _sub_statement: $ => seq(
       repeat($.decorator),
-      seq($.sub_start, /\s*/, field("name", $.identifier)),
+      seq($.sub_start, /\s*/, field("name", $.function_name)),
       $.sub_impl
     ),
 
@@ -364,8 +363,6 @@ module.exports = grammar({
       field('function', $.prefix_exp),
       field('arguments', $.parenthesized_expression)
     )),
-
-    variable_declarator: ($) => $._var,
 
     _var: ($) =>
       choice(

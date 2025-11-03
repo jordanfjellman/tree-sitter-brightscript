@@ -1,64 +1,11 @@
-; Identifiers
-(identifier) @variable
-
-; Function declaration
-(function_declaration
-  name: (identifier) @function)
-
+; Keywords
 [
   (sub_start)
   (function_start)
   (end_sub)
   (end_function)
-] @keyword.function
+] @keyword
 
-; Parameters
-(parameter
-  name: (identifier) @variable.parameter)
-
-; Types
-(type_annotation) @type
-(type_identifier) @type
-
-; Variables
-; Base variable in variable declarator (immediate child of prefix_exp)
-; (variable_declarator
-;   (prefix_exp
-;     (identifier) @variable
-;     (#not-has-ancestor? @variable prefix_exp)))
-
-; Properties in variable declarator
-; (variable_declarator
-;   (prefix_exp)
-;   (identifier) @property)
-
-(binary_expression
-  operator: (_) @keyword.operator)
-
-(logical_not_expression
-  operator: (_) @keyword.operator)
-
-; (logical_expression
-;   operator: (_) @keyword.operator)
-
-; Property access
-; First identifier in a chain (base variable)
-; (prefix_exp
-;   .
-;   (identifier) @variable
-;   (#not-has-ancestor? @variable prefix_exp))
-
-; All other identifiers in a chain (properties)
-; (prefix_exp
-;   (prefix_exp)
-;   (identifier) @property)
-
-; Function calls
-(function_call
-  function: (prefix_exp
-    (identifier) @function.call))
-
-; Statements
 [
   (if_start)
   (else)
@@ -66,7 +13,7 @@
   (end_if)
   (then)
   (conditional_compl_end_if)
-] @keyword.conditional
+] @keyword
 
 [
   (for_start)
@@ -79,23 +26,70 @@
   (end_while)
   (exit_while_statement)
   (exit_for_statement)
-] @keyword.repeat
+] @keyword
 
-; Statements
 [
   (try_start)
   (try_catch)
   (throw)
   (end_try)
-] @keyword.exception
+] @keyword
 
-(return_statement) @keyword.return
+(return_statement) @keyword
 
+; Function names
+(function_name) @function
+
+; All other identifiers are variables
+(identifier) @variable
+
+(parameter
+  name: (identifier) @variable.parameter)
+
+; Types
+(type_annotation) @type
+(type_identifier) @type
+
+; Properties and method access
+(property_access_expression
+  property: (identifier) @property)
+
+(member_expression
+  property: (property_identifier) @property)
+
+(callfunc_invocation
+  method: (property_identifier) @property)
+
+; Function calls
+(function_call
+  function: (prefix_exp
+    (identifier) @function.call))
+
+(call_expression
+  function: (identifier) @function.call)
+
+(call_expression
+  function: (property_access_expression
+    property: (identifier) @function.method))
+
+(call_expression
+  function: (member_expression
+    property: (property_identifier) @function.method))
+
+(call_expression
+  function: (callfunc_invocation
+    method: (property_identifier) @function.method))
+
+; Built-in functions
 (print) @function.builtin
 
-(constant) @constant
-
 ; Operators
+(binary_expression
+  operator: (_) @operator)
+
+(logical_not_expression
+  operator: (_) @operator)
+
 [
   (equals)
   (not_equals)
@@ -114,50 +108,6 @@
   (null_coalescing)
 ] @operator
 
-; Literals
-(boolean) @boolean
-
-(number) @number
-
-(string) @string
-
-(invalid) @constant.builtin
-
-; Comments
-(comment) @comment @spell
-
-; Punctuation
-; [
-;   "("
-;   ")"
-;   "["
-;   "]"
-;   "{"
-;   "}"
-;   "?["
-; ] @punctuation.bracket
-;
-; [
-;   "."
-;   ","
-;   "?."
-; ] @punctuation.delimiter
-
-; Special highlights for library statements
-(library_statement) @keyword.import
-
-(library_statement
-  path: (string) @module)
-
-; Array and associative array literals
-(array) @constructor
-
-(assoc_array) @constructor
-
-(assoc_array_element
-  key: (identifier) @property)
-
-; Increment/decrement operators
 [
   (prefix_increment_expression)
   (prefix_decrement_expression)
@@ -165,15 +115,41 @@
   (postfix_decrement_expression)
 ] @operator
 
-; Comparison operators
-; (comparison_expression
-;   [
-;     "="
-;     "<>"
-;     "<"
-;     "<="
-;     ">"
-;     ">="
-;   ] @operator)
+; Literals
+(boolean) @boolean
+(number) @number
+(string) @string
+(constant) @constant
+(invalid) @constant.builtin
 
-; (as) @keyword.operator
+; Comments
+(comment) @comment @spell
+
+; Punctuation
+[
+  "("
+  ")"
+  "["
+  "]"
+  "{"
+  "}"
+] @punctuation.bracket
+
+[
+  "."
+  ","
+  "?."
+  "@."
+] @punctuation.delimiter
+
+; Special statements
+(library_statement) @keyword
+(library_statement
+  path: (string) @module)
+
+; Array and associative array literals
+(array) @constructor
+(assoc_array) @constructor
+
+(assoc_array_element
+  key: (identifier) @property)

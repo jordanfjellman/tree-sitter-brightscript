@@ -2625,6 +2625,10 @@
         "required": true,
         "types": [
           {
+            "type": "function_name",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -2673,6 +2677,21 @@
         },
         {
           "type": "sub_start",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]

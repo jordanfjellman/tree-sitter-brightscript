@@ -97,7 +97,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "function_name"
               }
             }
           ]
@@ -107,6 +107,10 @@
           "name": "function_impl"
         }
       ]
+    },
+    "function_name": {
+      "type": "SYMBOL",
+      "name": "identifier"
     },
     "annonymous_function": {
       "type": "SEQ",
@@ -215,7 +219,7 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
-                "name": "identifier"
+                "name": "function_name"
               }
             }
           ]
@@ -1720,10 +1724,6 @@
           }
         ]
       }
-    },
-    "variable_declarator": {
-      "type": "SYMBOL",
-      "name": "_var"
     },
     "_var": {
       "type": "CHOICE",
@@ -4044,24 +4044,12 @@
   ],
   "conflicts": [
     [
-      "variable_declarator",
-      "_prefix_exp"
-    ],
-    [
       "_expression",
       "_var"
     ],
     [
       "property_identifier",
       "identifier"
-    ],
-    [
-      "method_signature",
-      "sub_statement"
-    ],
-    [
-      "method_signature",
-      "function_statement"
     ]
   ],
   "precedences": [],
