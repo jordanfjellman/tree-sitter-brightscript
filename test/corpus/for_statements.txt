@@ -298,23 +298,20 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (block
-          (exit_for_statement))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (block
+            (exit_for_statement))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))

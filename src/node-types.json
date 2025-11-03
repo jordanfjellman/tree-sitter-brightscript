@@ -952,6 +952,10 @@
         "required": true,
         "types": [
           {
+            "type": "callfunc_invocation",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -961,6 +965,36 @@
           },
           {
             "type": "property_access_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "callfunc_invocation",
+    "named": true,
+    "fields": {
+      "method": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "property_identifier",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -5310,6 +5344,10 @@
   },
   {
     "type": "@",
+    "named": false
+  },
+  {
+    "type": "@.",
     "named": false
   },
   {

@@ -2,13 +2,6 @@
 Basic callfunc operator
 ==================
 
-
-
-
-
-
-
-
 sub test()
     node@.someMethod(1, 2, 3)
 end sub
@@ -16,36 +9,25 @@ end sub
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (call_expression
-        function: (callfunc_invocation
-          object: (identifier)
-          method: (property_identifier))
-        arguments: (arguments
-          (number)
-          (number)
-          (number))))))
-
-
-
-
-
-
-
+  (sub_statement
+      (sub_start)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (call_expression
+          function: (callfunc_invocation
+            object: (identifier)
+            method: (property_identifier))
+          arguments: (arguments
+            (number)
+            (number)
+            (number))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Callfunc with no arguments
 ==================
-
-
-
-
-
-
-
 
 sub test()
     node@.doSomething()
@@ -54,33 +36,22 @@ end sub
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (call_expression
-        function: (callfunc_invocation
-          object: (identifier)
-          method: (property_identifier))
-        arguments: (arguments)))))
-
-
-
-
-
-
-
+  (sub_statement
+      (sub_start)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (call_expression
+          function: (callfunc_invocation
+            object: (identifier)
+            method: (property_identifier))
+          arguments: (arguments)))
+      (end_statement
+        (end_sub))))
 
 ==================
 Callfunc chain
 ==================
-
-
-
-
-
-
-
 
 sub test()
     result = parent@.getChild()@.getValue(123)
@@ -89,40 +60,29 @@ end sub
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (call_expression
-          function: (callfunc_invocation
-            object: (call_expression
-              function: (callfunc_invocation
-                object: (identifier)
-                method: (property_identifier))
-              arguments: (arguments))
-            method: (property_identifier))
-          arguments: (arguments
-            (number)))))))
-
-
-
-
-
-
-
+  (sub_statement
+      (sub_start)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (assignment_statement
+          left: (identifier)
+          right: (call_expression
+            function: (callfunc_invocation
+              object: (call_expression
+                function: (callfunc_invocation
+                  object: (identifier)
+                  method: (property_identifier))
+                arguments: (arguments))
+              method: (property_identifier))
+            arguments: (arguments
+              (number)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Callfunc with expression arguments
 ==================
-
-
-
-
-
-
-
 
 sub test()
     value = node@.calculate(x + y, data.property)
@@ -131,21 +91,24 @@ end sub
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (call_expression
-          function: (callfunc_invocation
-            object: (identifier)
-            method: (property_identifier))
-          arguments: (arguments
-            (binary_expression
-              left: (identifier)
-              operator: "+"
-              right: (identifier))
-            (member_expression
+  (sub_statement
+      (sub_start)
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (assignment_statement
+          left: (identifier)
+          right: (call_expression
+            function: (callfunc_invocation
               object: (identifier)
-              property: (property_identifier))))))))
+              method: (property_identifier))
+            arguments: (arguments
+              (binary_expression
+                left: (identifier)
+                operator: (plus)
+                right: (identifier))
+              (member_expression
+                object: (identifier)
+                property: (property_identifier))))))
+      (end_statement
+        (end_sub))))

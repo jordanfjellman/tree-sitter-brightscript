@@ -379,7 +379,8 @@ module.exports = grammar({
       field('function', choice(
         $.identifier,
         $.property_access_expression,
-        $.member_expression
+        $.member_expression,
+        $.callfunc_invocation
       )),
       field('arguments', $.arguments)
     )),
@@ -447,6 +448,16 @@ module.exports = grammar({
       )),
       '.',
       field('property', $.property_identifier)
+    )),
+
+    // Callfunc invocation (for @ operator like node@.method())
+    callfunc_invocation: $ => prec.left(3, seq(
+      field('object', choice(
+        $.identifier,
+        $.call_expression
+      )),
+      '@.',
+      field('method', $.property_identifier)
     )),
 
     array_access_expression: $ => prec(1, seq(
@@ -676,7 +687,7 @@ module.exports = grammar({
     )),
 
     // BrighterScript function declaration (used in namespaces, as top-level declarations)
-    function_declaration: $ => seq(
+    function_declaration: $ => prec.dynamic(1, seq(
       repeat($.decorator),
       choice(/function/i, /sub/i),
       field('name', $.identifier),
@@ -684,7 +695,7 @@ module.exports = grammar({
       optional(field('return_type', $.type_annotation)),
       field('body', $.statement_block),
       /end\s+(function|sub)/i
-    ),
+    )),
 
     // Type annotations
     type_annotation: $ => seq(
@@ -701,7 +712,7 @@ module.exports = grammar({
     end_sub: $ => /end\s+sub/i,
     end_function: $ => /end\s+function/i,
     end_if: $ => /end\s+if/i,
-    end_for: $ => choice(/end\s+for/i, /next/i),
+    end_for: $ => choice(/end\s+for/i, token(prec(1, /next/i))),
     end_while: $ => /end\s+while/i,
     end_try: $ => /end\s+try/i,
     conditional_compl_end_if: $ => /#end\s+if/i,
