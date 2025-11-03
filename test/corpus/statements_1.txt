@@ -9,18 +9,16 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
           (string
-            (string_contents)))))
-    (end_statement
-      (end_sub))))
+            (string_content))))
+      (end_statement
+        (end_sub))))
 
 ==================
 property_access_expression
@@ -33,20 +31,18 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (prefix_exp
-            (identifier))
-          (identifier))
-        (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (member_expression
+            (identifier)
+            (property_identifier))
           (string
-            (string_contents)))))
-    (end_statement
-      (end_sub))))
+            (string_content))))
+      (end_statement
+        (end_sub))))
 
 ==================
 property_access_expression recursive
@@ -59,22 +55,20 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (prefix_exp
-            (prefix_exp
-              (identifier))
-            (identifier))
-          (identifier))
-        (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (member_expression
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (property_identifier))
           (string
-            (string_contents)))))
-    (end_statement
-      (end_sub))))
+            (string_content))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Multiplicitive expression
@@ -87,19 +81,15 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (binary_expression
-          (arithmetic_expression
-            (multiplicative_expression
-              (literal
-               (number))
-              (literal
-               (number)))))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (binary_expression
+            (number)
+            (backslash)
+            (number))))
+      (end_statement
+        (end_sub))))

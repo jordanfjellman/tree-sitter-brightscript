@@ -6,25 +6,27 @@ sub test()
     name = "World"
     message = `Hello ${name}!`
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (string
-          (string_content)))
-      (assignment_statement
-        left: (identifier)
-        right: (template_string
-          (template_fragment)
-          (template_interpolation
-            (identifier))
-          (template_fragment))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (string
+            (string_content)))
+        (assignment_statement
+          (identifier)
+          (template_string
+            (template_fragment)
+            (template_interpolation
+              (identifier))
+            (template_fragment))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Template string with multiple substitutions
@@ -35,32 +37,33 @@ sub test()
     last = "Doe"
     message = `Full name: ${first} ${last}`
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (string
-          (string_content)))
-      (assignment_statement
-        left: (identifier)
-        right: (string
-          (string_content)))
-      (assignment_statement
-        left: (identifier)
-        right: (template_string
-          (template_fragment)
-          (template_interpolation
-            (identifier))
-          (template_fragment)
-          (template_interpolation
-            (identifier))
-          (template_fragment))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (string
+            (string_content)))
+        (assignment_statement
+          (identifier)
+          (string
+            (string_content)))
+        (assignment_statement
+          (identifier)
+          (template_string
+            (template_fragment)
+            (template_interpolation
+              (identifier))
+            (template_fragment)
+            (template_interpolation
+              (identifier)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Template string with expression
@@ -71,27 +74,28 @@ sub test()
     y = 10
     message = `Sum: ${x + y}`
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (number))
-      (assignment_statement
-        left: (identifier)
-        right: (number))
-      (assignment_statement
-        left: (identifier)
-        right: (template_string
-          (template_fragment)
-          (template_interpolation
-            (binary_expression
-              left: (identifier)
-              operator: "+"
-              right: (identifier)))
-          (template_fragment))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (assignment_statement
+          (identifier)
+          (number))
+        (assignment_statement
+          (identifier)
+          (template_string
+            (template_fragment)
+            (template_interpolation
+              (binary_expression
+                (identifier)
+                (plus)
+                (identifier))))))
+      (end_statement
+        (end_sub))))

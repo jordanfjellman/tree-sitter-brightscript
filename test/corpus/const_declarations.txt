@@ -2,6 +2,9 @@
 Const with number
 ==================
 
+
+
+
 const MAX_USERS = 100
 
 ---
@@ -11,9 +14,15 @@ const MAX_USERS = 100
     name: (identifier)
     value: (number)))
 
+
+
+
 ==================
 Const with string
 ==================
+
+
+
 
 const API_KEY = "abc123"
 
@@ -25,9 +34,15 @@ const API_KEY = "abc123"
     value: (string
       (string_content))))
 
+
+
+
 ==================
 Multiple const declarations
 ==================
+
+
+
 
 const MAX_USERS = 100
 const API_KEY = "abc123"
@@ -47,9 +62,15 @@ const TIMEOUT = 5000
     name: (identifier)
     value: (number)))
 
+
+
+
 ==================
 Const with boolean
 ==================
+
+
+
 
 const DEBUG_MODE = true
 const PRODUCTION = false

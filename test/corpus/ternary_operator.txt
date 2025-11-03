@@ -5,22 +5,24 @@ Basic ternary operator
 sub test()
     value = isTrue ? "yes" : "no"
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (identifier)
-          consequence: (string
-            (string_content))
-          alternative: (string
-            (string_content)))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (identifier)
+            (string
+              (string_content))
+            (string
+              (string_content)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Ternary with expression condition
@@ -29,26 +31,30 @@ Ternary with expression condition
 sub test()
     result = (x > 10) ? "big" : "small"
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (parenthesized_expression
-            (binary_expression
-              left: (identifier)
-              operator: ">"
-              right: (number)))
-          consequence: (string
-            (string_content))
-          alternative: (string
-            (string_content)))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (prefix_exp
+              (left_paren)
+              (binary_expression
+                (identifier)
+                (greater_than)
+                (number))
+              (right_paren))
+            (string
+              (string_content))
+            (string
+              (string_content)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Ternary with function calls
@@ -57,24 +63,26 @@ Ternary with function calls
 sub test()
     value = condition ? getValue() : getDefault()
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (identifier)
-          consequence: (call_expression
-            function: (identifier)
-            arguments: (arguments))
-          alternative: (call_expression
-            function: (identifier)
-            arguments: (arguments)))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (identifier)
+            (call_expression
+              (identifier)
+              (arguments))
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Nested ternary
@@ -83,32 +91,34 @@ Nested ternary
 sub test()
     level = score > 90 ? "A" : score > 80 ? "B" : "C"
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (binary_expression
-            left: (identifier)
-            operator: ">"
-            right: (number))
-          consequence: (string
-            (string_content))
-          alternative: (ternary_expression
-            condition: (binary_expression
-              left: (identifier)
-              operator: ">"
-              right: (number))
-            consequence: (string
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (binary_expression
+              (identifier)
+              (greater_than)
+              (number))
+            (string
               (string_content))
-            alternative: (string
-              (string_content))))))))
+            (ternary_expression
+              (binary_expression
+                (identifier)
+                (greater_than)
+                (number))
+              (string
+                (string_content))
+              (string
+                (string_content))))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Ternary with array access
@@ -117,24 +127,27 @@ Ternary with array access
 sub test()
     data = isTrue ? ["key"] : getFalseData()
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (identifier)
-          consequence: (array
-            (string
-              (string_content)))
-          alternative: (call_expression
-            function: (identifier)
-            arguments: (arguments)))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (identifier)
+            (literal
+              (array
+                (string
+                  (string_content))))
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Ternary with parenthesized expression
@@ -143,23 +156,27 @@ Ternary with parenthesized expression
 sub test()
     data = isTrue ? (1 + 2) : getFalseData()
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (ternary_expression
-          condition: (identifier)
-          consequence: (parenthesized_expression
-            (binary_expression
-              left: (number)
-              operator: "+"
-              right: (number)))
-          alternative: (call_expression
-            function: (identifier)
-            arguments: (arguments)))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (ternary_expression
+            (identifier)
+            (prefix_exp
+              (left_paren)
+              (binary_expression
+                (number)
+                (plus)
+                (number))
+              (right_paren))
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (end_statement
+        (end_sub))))

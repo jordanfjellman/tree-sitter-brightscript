@@ -5,18 +5,20 @@ Basic regex literal
 sub test()
     pattern = /hello world/
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (regex
-          pattern: (regex_pattern))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (regex
+            (regex_pattern))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Regex with flags
@@ -25,19 +27,21 @@ Regex with flags
 sub test()
     pattern = /hello world/ig
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (regex
-          pattern: (regex_pattern)
-          flags: (regex_flags))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (regex
+            (regex_pattern)
+            (regex_flags))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Regex with escaped slash
@@ -46,18 +50,20 @@ Regex with escaped slash
 sub test()
     pattern = /hello\/world/
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (regex
-          pattern: (regex_pattern))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (regex
+            (regex_pattern))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Regex in print statement
@@ -66,18 +72,21 @@ Regex in print statement
 sub test()
     print /hello world/ig
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (print_statement
-        (regex
-          pattern: (regex_pattern)
-          flags: (regex_flags))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (print_statement
+          (print)
+          (regex
+            (regex_pattern)
+            (regex_flags))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Complex regex pattern
@@ -86,15 +95,17 @@ Complex regex pattern
 sub test()
     emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    name: (identifier)
-    parameters: (parameter_list)
-    body: (statement_block
-      (assignment_statement
-        left: (identifier)
-        right: (regex
-          pattern: (regex_pattern))))))
+  (sub_statement
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (regex
+            (regex_pattern))))
+      (end_statement
+        (end_sub))))

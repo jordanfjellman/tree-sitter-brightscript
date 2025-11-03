@@ -7,19 +7,18 @@ enum Color
     Green
     Blue
 end enum
-
 ---
 
 (source_file
   (enum_declaration
-    name: (identifier)
-    body: (enum_body
+    (identifier)
+    (enum_body
       (enum_member
-        name: (identifier))
+        (identifier))
       (enum_member
-        name: (identifier))
+        (identifier))
       (enum_member
-        name: (identifier)))))
+        (identifier)))))
 
 ==================
 Enum with explicit values
@@ -30,22 +29,21 @@ enum HttpStatus
     NotFound = 404
     ServerError = 500
 end enum
-
 ---
 
 (source_file
   (enum_declaration
-    name: (identifier)
-    body: (enum_body
+    (identifier)
+    (enum_body
       (enum_member
-        name: (identifier)
-        value: (number))
+        (identifier)
+        (number))
       (enum_member
-        name: (identifier)
-        value: (number))
+        (identifier)
+        (number))
       (enum_member
-        name: (identifier)
-        value: (number)))))
+        (identifier)
+        (number)))))
 
 ==================
 Enum with mixed values
@@ -57,20 +55,19 @@ enum Priority
     High = 10
     Critical
 end enum
-
 ---
 
 (source_file
   (enum_declaration
-    name: (identifier)
-    body: (enum_body
+    (identifier)
+    (enum_body
       (enum_member
-        name: (identifier)
-        value: (number))
+        (identifier)
+        (number))
       (enum_member
-        name: (identifier))
+        (identifier))
       (enum_member
-        name: (identifier)
-        value: (number))
+        (identifier)
+        (number))
       (enum_member
-        name: (identifier)))))
+        (identifier)))))

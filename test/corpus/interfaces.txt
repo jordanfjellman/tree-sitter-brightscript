@@ -6,24 +6,23 @@ interface ILogger
     sub log(message as string)
     function getLogLevel() as string
 end interface
-
 ---
 
 (source_file
   (interface_declaration
-    name: (identifier)
-    body: (interface_body
+    (identifier)
+    (interface_body
       (method_signature
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))))
       (method_signature
-        name: (identifier)
-        parameters: (parameter_list)
-        return_type: (type_annotation
+        (identifier)
+        (parameter_list)
+        (type_annotation
           (type_identifier))))))
 
 ==================
@@ -35,35 +34,34 @@ interface IDataService
     function saveData(data as object) as boolean
     sub deleteData(id as integer)
 end interface
-
 ---
 
 (source_file
   (interface_declaration
-    name: (identifier)
-    body: (interface_body
+    (identifier)
+    (interface_body
       (method_signature
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier)))
       (method_signature
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier)))
       (method_signature
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))))))

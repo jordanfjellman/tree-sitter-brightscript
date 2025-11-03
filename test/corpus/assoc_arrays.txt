@@ -5,22 +5,20 @@ assocarray test 1
 sub TestEmptyAssocArray()
     emptyAssocArray = {}
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array))))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray test 2
@@ -33,39 +31,34 @@ sub TestAssocArrayWithElements()
         "city": "New York"
     }
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (number)))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+                  (string_content))
                 (string
-                  (string_contents))))))))
-    (end_statement
-      (end_sub))))
+                  (string_content)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (number))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (string
+                  (string_content)))))))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray test 3
@@ -79,45 +72,39 @@ sub TestAssocArrayElementAccess()
     }
     print person.name
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (number)))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+                  (string_content))
                 (string
-                  (string_contents)))))))
-      (print_statement
-        (print)
-        (prefix_exp
-          (prefix_exp
-            (identifier))
-          (identifier))))
-    (end_statement
-      (end_sub))))
+                  (string_content)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (number))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (string
+                  (string_content))))))
+        (print_statement
+          (print)
+          (member_expression
+            (identifier)
+            (property_identifier))))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray test 4
@@ -131,46 +118,39 @@ sub TestAssocArrayElementModification()
     }
     person.age = 31
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (number)))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+                  (string_content))
                 (string
-                  (string_contents)))))))
-      (assignment_statement
-        (variable_declarator
-          (prefix_exp
-            (identifier))
-          (identifier))
-        (literal
-          (number))))
-    (end_statement
-      (end_sub))))
+                  (string_content)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (number))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (string
+                  (string_content))))))
+        (assignment_statement
+          (member_expression
+            (identifier)
+            (property_identifier))
+          (number)))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray test 5
@@ -182,42 +162,34 @@ sub TestAssocArrayWithExpressions()
         "product": 5 * 6
     }
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (string
-                (string_contents))
-              (binary_expression
-                (arithmetic_expression
-                  (additive_expression
-                    (literal
-                      (number))
-                    (literal
-                      (number))))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (binary_expression
-                (arithmetic_expression
-                  (multiplicative_expression
-                    (literal
-                      (number))
-                    (literal
-                      (number))))))))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
+                (string
+                  (string_content))
+                (binary_expression
+                  (number)
+                  (plus)
+                  (number)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (binary_expression
+                  (number)
+                  (multiply)
+                  (number)))))))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray no comma
@@ -230,38 +202,34 @@ sub TestAssocArrayWithElements()
         "city": invalid
     }
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (number)))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (invalid)))))))
-    (end_statement
-      (end_sub))))
+                  (string_content))
+                (string
+                  (string_content)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (number))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (literal
+                  (invalid)))))))
+      (end_statement
+        (end_sub))))
 
 ==================
 assocarray no comma and identifier left side
@@ -274,34 +242,30 @@ sub TestAssocArrayWithElements()
         "city": invalid
     }
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (identifier)
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
+                (identifier)
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (number)))
-            (assoc_array_element
-              (string
-                (string_contents))
-              (literal
-                (invalid)))))))
-    (end_statement
-      (end_sub))))
+                  (string_content)))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (number))
+              (assoc_array_element
+                (string
+                  (string_content))
+                (literal
+                  (invalid)))))))
+      (end_statement
+        (end_sub))))

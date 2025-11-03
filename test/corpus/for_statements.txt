@@ -10,24 +10,21 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for statement
@@ -42,36 +39,31 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (for_step)
-        (literal
-          (number))
-        (block
-          (print_statement
-            (print)
-            (prefix_exp
-              (left_paren)
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (for_step)
+          (number)
+          (block
+            (print_statement
+              (print)
+              (prefix_exp
+                (left_paren)
                 (string
-                  (string_contents)))
-              (right_paren))))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+                  (string_content))
+                (right_paren))))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for each statement
@@ -87,45 +79,39 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (assoc_array
-            (assoc_array_element
-              (identifier)
-              (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (assoc_array
+              (assoc_array_element
+                (identifier)
                 (string
-                  (string_contents))))
-            (assoc_array_element
-              (identifier)
-              (literal
+                  (string_content)))
+              (assoc_array_element
+                (identifier)
                 (string
-                  (string_contents)))))))
-      (for_statement
-        (for_start)
-        (for_each)
-        (prefix_exp
-          (identifier))
-        (for_in)
-        (prefix_exp
-          (identifier))
-        (block
-          (print_statement
-            (print)
-            (prefix_exp
-              (left_paren)
+                  (string_content))))))
+        (for_statement
+          (for_start)
+          (for_each)
+          (identifier)
+          (for_in)
+          (identifier)
+          (block
+            (print_statement
+              (print)
               (prefix_exp
-                (identifier))
-              (right_paren))))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+                (left_paren)
+                (identifier)
+                (right_paren))))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for statement with step
@@ -136,40 +122,34 @@ sub init()
         print(x)
     end for
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (for_step)
-        (literal
-          (number))
-        (block
-          (print_statement
-            (print)
-            (prefix_exp
-              (left_paren)
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (for_step)
+          (number)
+          (block
+            (print_statement
+              (print)
               (prefix_exp
-                (identifier))
-              (right_paren))))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+                (left_paren)
+                (identifier)
+                (right_paren))))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for each statement with array
@@ -181,50 +161,40 @@ sub init()
         print(item)
     end for
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (array
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number))
-            (literal
-              (number)))))
-      (for_statement
-        (for_start)
-        (for_each)
-        (prefix_exp
-          (identifier))
-        (for_in)
-        (prefix_exp
-          (identifier))
-        (block
-          (print_statement
-            (print)
-            (prefix_exp
-              (left_paren)
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (literal
+            (array
+              (number)
+              (number)
+              (number)
+              (number)
+              (number))))
+        (for_statement
+          (for_start)
+          (for_each)
+          (identifier)
+          (for_in)
+          (identifier)
+          (block
+            (print_statement
+              (print)
               (prefix_exp
-                (identifier))
-              (right_paren))))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+                (left_paren)
+                (identifier)
+                (right_paren))))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 nested for statements
@@ -237,55 +207,45 @@ sub init()
         end for
     end for
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (block
-          (for_statement
-            (for_start)
-            (assignment_statement
-              (variable_declarator
-                (identifier))
-              (literal
-                (number)))
-            (for_to)
-            (literal
-              (number))
-            (block
-              (print_statement
-                (print)
-                (prefix_exp
-                  (left_paren)
-                  (binary_expression
-                    (arithmetic_expression
-                      (additive_expression
-                        (prefix_exp
-                          (identifier))
-                        (prefix_exp
-                          (identifier)))))
-                  (right_paren))))
-            (end_statement
-              (end_for))))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (block
+            (for_statement
+              (for_start)
+              (assignment_statement
+                (identifier)
+                (number))
+              (for_to)
+              (number)
+              (block
+                (print_statement
+                  (print)
+                  (prefix_exp
+                    (left_paren)
+                    (binary_expression
+                      (identifier)
+                      (plus)
+                      (identifier))
+                    (right_paren))))
+              (end_statement
+                (end_for))))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for statement with exit for
@@ -300,30 +260,30 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (for_statement
-        (for_start)
-        (assignment_statement
-          (variable_declarator
-            (identifier))
-          (literal
-            (number)))
-        (for_to)
-        (literal
-          (number))
-        (block
-          (exit_for_statement))
-        (end_statement
-          (end_for))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (for_statement
+          (for_start)
+          (assignment_statement
+            (identifier)
+            (number))
+          (for_to)
+          (number)
+          (block
+            (exit_for_statement))
+          (end_statement
+            (end_for))))
+      (end_statement
+        (end_sub))))
 
 ==================
 for statement with exit for and NEXT keyword
 ==================
+
+
+
 
 sub init()
     for x=0 to 10

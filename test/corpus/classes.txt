@@ -15,50 +15,52 @@ class Person
         return m.name
     end function
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (method_definition
-        name: (identifier)
-        parameters: (parameter_list)
-        body: (statement_block
+        (identifier)
+        (parameter_list)
+        (statement_block
           (assignment_statement
-            left: (member_expression
-              object: (identifier)
-              property: (property_identifier))
-            right: (string
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (string
               (string_content)))
           (assignment_statement
-            left: (member_expression
-              object: (identifier)
-              property: (property_identifier))
-            right: (number))))
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (number))))
       (method_definition
-        name: (identifier)
-        parameters: (parameter_list)
-        return_type: (type_annotation
+        (identifier)
+        (parameter_list)
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (member_expression
-              object: (identifier)
-              property: (property_identifier))))))))
+              (identifier)
+              (property_identifier))))))))
 
 ==================
 Class with inheritance
 ==================
+
+
+
 
 class Employee extends Person
     employeeId as integer
@@ -100,6 +102,9 @@ end class
               property: (property_identifier))
             right: (identifier)))))))
 
+
+
+
 ==================
 Class with access modifiers
 ==================
@@ -123,84 +128,85 @@ class Account
         end if
     end function
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (field_declaration
         (accessibility_modifier)
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (field_declaration
         (accessibility_modifier)
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (field_declaration
         (accessibility_modifier)
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (method_definition
         (accessibility_modifier)
-        name: (identifier)
-        parameters: (parameter_list)
-        body: (statement_block
+        (identifier)
+        (parameter_list)
+        (statement_block
           (assignment_statement
-            left: (member_expression
-              object: (identifier)
-              property: (property_identifier))
-            right: (number))))
+            (member_expression
+              (identifier)
+              (property_identifier))
+            (number))))
       (method_definition
         (accessibility_modifier)
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (binary_expression
-              left: (identifier)
-              operator: (greater_than)
-              right: (number)))))
+              (identifier)
+              (greater_than)
+              (number)))))
       (method_definition
         (accessibility_modifier)
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (if_statement
             (multi_line_if
-              condition: (call_expression
-                function: (member_expression
-                  object: (identifier)
-                  property: (property_identifier))
-                arguments: (arguments
+              (if_start)
+              (call_expression
+                (member_expression
+                  (identifier)
+                  (property_identifier))
+                (arguments
                   (identifier)))
+              (then)
               (if_block
                 (assignment_statement
-                  left: (member_expression
-                    object: (identifier)
-                    property: (property_identifier))
-                  right: (binary_expression
-                    left: (member_expression
-                      object: (identifier)
-                      property: (property_identifier))
-                    operator: (plus)
-                    right: (identifier)))
+                  (member_expression
+                    (identifier)
+                    (property_identifier))
+                  (binary_expression
+                    (member_expression
+                      (identifier)
+                      (property_identifier))
+                    (plus)
+                    (identifier)))
                 (end_statement
                   (end_if))))))))))
 
@@ -213,33 +219,32 @@ class MathUtils
         return a + b
     end function
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (method_definition
         (static_modifier)
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (binary_expression
-              left: (identifier)
-              operator: (plus)
-              right: (identifier))))))))
+              (identifier)
+              (plus)
+              (identifier))))))))
 
 ==================
 Override method
@@ -258,49 +263,48 @@ class Circle extends Shape
         return 3.14159 * m.radius * m.radius
     end function
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (method_definition
-        name: (identifier)
-        parameters: (parameter_list)
-        return_type: (type_annotation
+        (identifier)
+        (parameter_list)
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (number))))))
   (class_declaration
-    name: (identifier)
-    superclass: (extends_clause
+    (identifier)
+    (extends_clause
       (type_identifier))
-    body: (class_body
+    (class_body
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (method_definition
         (override_modifier)
-        name: (identifier)
-        parameters: (parameter_list)
-        return_type: (type_annotation
+        (identifier)
+        (parameter_list)
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (binary_expression
-              left: (binary_expression
-                left: (number)
-                operator: (multiply)
-                right: (member_expression
-                  object: (identifier)
-                  property: (property_identifier)))
-              operator: (multiply)
-              right: (member_expression
-                object: (identifier)
-                property: (property_identifier)))))))))
+              (binary_expression
+                (number)
+                (multiply)
+                (member_expression
+                  (identifier)
+                  (property_identifier)))
+              (multiply)
+              (member_expression
+                (identifier)
+                (property_identifier)))))))))
 
 ==================
 Multiple classes in file
@@ -315,29 +319,28 @@ class Rectangle
     topLeft as Point
     bottomRight as Point
 end class
-
 ---
 
 (source_file
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))))
   (class_declaration
-    name: (identifier)
-    body: (class_body
+    (identifier)
+    (class_body
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier)))
       (field_declaration
-        name: (identifier)
-        type: (type_annotation
+        (identifier)
+        (type_annotation
           (type_identifier))))))

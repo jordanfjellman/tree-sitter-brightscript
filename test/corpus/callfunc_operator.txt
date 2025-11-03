@@ -2,6 +2,9 @@
 Basic callfunc operator
 ==================
 
+
+
+
 sub test()
     node@.someMethod(1, 2, 3)
 end sub
@@ -22,9 +25,15 @@ end sub
           (number)
           (number))))))
 
+
+
+
 ==================
 Callfunc with no arguments
 ==================
+
+
+
 
 sub test()
     node@.doSomething()
@@ -43,9 +52,15 @@ end sub
           method: (property_identifier))
         arguments: (arguments)))))
 
+
+
+
 ==================
 Callfunc chain
 ==================
+
+
+
 
 sub test()
     result = parent@.getChild()@.getValue(123)
@@ -71,9 +86,15 @@ end sub
           arguments: (arguments
             (number)))))))
 
+
+
+
 ==================
 Callfunc with expression arguments
 ==================
+
+
+
 
 sub test()
     value = node@.calculate(x + y, data.property)

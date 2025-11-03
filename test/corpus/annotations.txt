@@ -5,15 +5,14 @@ Single decorator on class
 @expose
 class MyComp
 end class
-
 ---
 
 (source_file
   (class_declaration
     (decorator
-      name: (identifier))
-    name: (identifier)
-    body: (class_body)))
+      (identifier))
+    (identifier)
+    (class_body)))
 
 ==================
 Multiple decorators on function
@@ -22,21 +21,24 @@ Multiple decorators on function
 @task @export_fields([content, result])
 function init()
 end function
-
 ---
 
 (source_file
-  (function_declaration
-    (decorator
-      name: (identifier))
-    (decorator
-      name: (identifier)
-      arguments: (arguments
-        (array
-          (identifier)
-          (identifier))))
-    name: (identifier)
-    parameters: (parameter_list)))
+  (function_statement
+      (decorator
+        (identifier))
+      (decorator
+        (identifier)
+        (arguments
+          (literal
+            (array
+              (identifier)
+              (identifier)))))
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (end_statement
+        (end_function))))
 
 ==================
 Decorator with complex parameters
@@ -53,29 +55,33 @@ Decorator with complex parameters
 )
 function main()
 end function
-
 ---
 
 (source_file
-  (function_declaration
-    (decorator
-      name: (identifier)
-      arguments: (arguments
-        (string
-          (string_content))
-        (number)
-        (boolean)
-        (associative_array
-          (pair
-            key: (identifier)
-            value: (string
-              (string_content)))
-          (pair
-            key: (identifier)
-            value: (string
-              (string_content))))))
-    name: (identifier)
-    parameters: (parameter_list)))
+  (function_statement
+      (decorator
+        (identifier)
+        (arguments
+          (string
+            (string_content))
+          (number)
+          (literal
+            (boolean))
+          (literal
+            (assoc_array
+              (assoc_array_element
+                (identifier)
+                (string
+                  (string_content)))
+              (assoc_array_element
+                (identifier)
+                (string
+                  (string_content)))))))
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (end_statement
+        (end_function))))
 
 ==================
 Decorator on previous line
@@ -84,15 +90,17 @@ Decorator on previous line
 @deprecated
 sub oldMethod()
 end sub
-
 ---
 
 (source_file
-  (function_declaration
-    (decorator
-      name: (identifier))
-    name: (identifier)
-    parameters: (parameter_list)))
+  (sub_statement
+      (decorator
+        (identifier))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (end_statement
+        (end_sub))))
 
 ==================
 Decorator inline
@@ -101,20 +109,23 @@ Decorator inline
 @inline function quickCalc() as integer
     return 42
 end function
-
 ---
 
 (source_file
-  (function_declaration
-    (decorator
-      name: (identifier))
-    name: (identifier)
-    parameters: (parameter_list)
-    return_type: (type_annotation
-      (type_identifier))
-    body: (statement_block
-      (return_statement
-        (number)))))
+  (function_statement
+      (decorator
+        (identifier))
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (return_type
+        (type_annotation
+          (type_identifier)))
+      (block
+        (return_statement
+          (number)))
+      (end_statement
+        (end_function))))
 
 ==================
 Decorator with no parameters
@@ -124,18 +135,21 @@ Decorator with no parameters
 function getValue() as string
     return "value"
 end function
-
 ---
 
 (source_file
-  (function_declaration
-    (decorator
-      name: (identifier))
-    name: (identifier)
-    parameters: (parameter_list)
-    return_type: (type_annotation
-      (type_identifier))
-    body: (statement_block
-      (return_statement
-        (string
-          (string_content))))))
+  (function_statement
+      (decorator
+        (identifier))
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (return_type
+        (type_annotation
+          (type_identifier)))
+      (block
+        (return_statement
+          (string
+            (string_content))))
+      (end_statement
+        (end_function))))

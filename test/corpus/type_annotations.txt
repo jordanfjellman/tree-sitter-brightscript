@@ -2,6 +2,9 @@
 Generic type annotation
 ==================
 
+
+
+
 function getItems() as roArray<string>
     return ["item1", "item2"]
 end function
@@ -25,9 +28,15 @@ end function
           (string
             (string_content)))))))
 
+
+
+
 ==================
 Multiple generic parameters
 ==================
+
+
+
 
 function getDictionary() as roAssociativeArray<string, integer>
     return {}
@@ -49,9 +58,15 @@ end function
       (return_statement
         (associative_array)))))
 
+
+
+
 ==================
 Nested generic types
 ==================
+
+
+
 
 function getNestedArray() as roArray<roArray<integer>>
     return [[1, 2], [3, 4]]

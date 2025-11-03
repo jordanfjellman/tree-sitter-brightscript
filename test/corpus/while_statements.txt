@@ -12,34 +12,28 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (while_statement
-        (while_start)
-        (literal
-          (boolean))
-        (block
-          (assignment_statement
-            (variable_declarator
-              (identifier))
-            (binary_expression
-              (arithmetic_expression
-                (additive_expression
-                  (prefix_exp
-                    (identifier))
-                  (literal
-                    (number)))))))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (while_statement
+          (while_start)
+          (literal
+            (boolean))
+          (block
+            (assignment_statement
+              (identifier)
+              (binary_expression
+                (identifier)
+                (plus)
+                (number))))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))
 
 ==================
 while statement more complex expression
@@ -55,47 +49,36 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (while_statement
-        (while_start)
-        (binary_expression
-          (logical_expression
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (while_statement
+          (while_start)
+          (binary_expression
             (binary_expression
-              (comparison_expression
-                (prefix_exp
-                  (identifier))
-                (literal
-                  (number))))
+              (identifier)
+              (less_than)
+              (number))
             (and)
             (binary_expression
-              (comparison_expression
-                (prefix_exp
-                  (identifier))
-                (literal
-                  (number))))))
-        (block
-          (assignment_statement
-            (variable_declarator
-              (identifier))
-            (binary_expression
-              (arithmetic_expression
-                (additive_expression
-                  (prefix_exp
-                    (identifier))
-                  (literal
-                    (number)))))))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+              (identifier)
+              (greater_than_or_equal)
+              (number)))
+          (block
+            (assignment_statement
+              (identifier)
+              (binary_expression
+                (identifier)
+                (plus)
+                (number))))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))
 
 ==================
 while statement with function call
@@ -107,44 +90,34 @@ sub init()
         y = y + 1
     end while
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (while_statement
-        (while_start)
-        (prefix_exp
-          (function_call
-            (prefix_exp
-              (identifier))
-            (parenthesized_expression
-              (prefix_exp
-                (identifier)))))
-        (block
-          (assignment_statement
-            (variable_declarator
-              (identifier))
-            (binary_expression
-              (arithmetic_expression
-                (additive_expression
-                  (prefix_exp
-                    (identifier))
-                  (literal
-                    (number)))))))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (while_statement
+          (while_start)
+          (call_expression
+            (identifier)
+            (arguments
+              (identifier)))
+          (block
+            (assignment_statement
+              (identifier)
+              (binary_expression
+                (identifier)
+                (plus)
+                (number))))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))
 
 ==================
 while statement with not expression
@@ -156,49 +129,40 @@ sub init()
         y = y + 1
     end while
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (while_statement
-        (while_start)
-        (unary_expression
-          (logical_not_expression
-            (not)
-            (prefix_exp
-              (left_paren)
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (while_statement
+          (while_start)
+          (unary_expression
+            (logical_not_expression
+              (not)
+              (prefix_exp
+                (left_paren)
+                (binary_expression
+                  (identifier)
+                  (greater_than)
+                  (number))
+                (right_paren))))
+          (block
+            (assignment_statement
+              (identifier)
               (binary_expression
-                (comparison_expression
-                  (prefix_exp
-                    (identifier))
-                  (literal
-                    (number))))
-              (right_paren))))
-        (block
-          (assignment_statement
-            (variable_declarator
-              (identifier))
-            (binary_expression
-              (arithmetic_expression
-                (additive_expression
-                  (prefix_exp
-                    (identifier))
-                  (literal
-                    (number)))))))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+                (identifier)
+                (plus)
+                (number))))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))
 
 ==================
 nested while statements
@@ -215,81 +179,61 @@ sub init()
         x = x + 1
     end while
 end sub
-
 ---
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (assignment_statement
-        (variable_declarator
-          (identifier))
-        (literal
-          (number)))
-      (while_statement
-        (while_start)
-        (binary_expression
-          (comparison_expression
-            (prefix_exp
-              (identifier))
-            (literal
-              (number))))
-        (block
-          (while_statement
-            (while_start)
-            (binary_expression
-              (comparison_expression
-                (prefix_exp
-                  (identifier))
-                (literal
-                  (number))))
-            (block
-              (print_statement
-                (print)
-                (prefix_exp
-                  (left_paren)
-                  (binary_expression
-                    (arithmetic_expression
-                      (additive_expression
-                        (prefix_exp
-                          (identifier))
-                        (prefix_exp
-                          (identifier)))))
-                  (right_paren)))
-              (assignment_statement
-                (variable_declarator
-                  (identifier))
-                (binary_expression
-                  (arithmetic_expression
-                    (additive_expression
-                      (prefix_exp
-                        (identifier))
-                      (literal
-                        (number)))))))
-            (end_statement
-              (end_while)))
-          (assignment_statement
-            (variable_declarator
-              (identifier))
-            (binary_expression
-              (arithmetic_expression
-                (additive_expression
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (assignment_statement
+          (identifier)
+          (number))
+        (assignment_statement
+          (identifier)
+          (number))
+        (while_statement
+          (while_start)
+          (binary_expression
+            (identifier)
+            (less_than)
+            (number))
+          (block
+            (while_statement
+              (while_start)
+              (binary_expression
+                (identifier)
+                (less_than)
+                (number))
+              (block
+                (print_statement
+                  (print)
                   (prefix_exp
-                    (identifier))
-                  (literal
-                    (number)))))))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+                    (left_paren)
+                    (binary_expression
+                      (identifier)
+                      (plus)
+                      (identifier))
+                    (right_paren)))
+                (assignment_statement
+                  (identifier)
+                  (binary_expression
+                    (identifier)
+                    (plus)
+                    (number))))
+              (end_statement
+                (end_while)))
+            (assignment_statement
+              (identifier)
+              (binary_expression
+                (identifier)
+                (plus)
+                (number))))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))
 
 ==================
 while statement with exit while
@@ -304,17 +248,17 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (while_statement
-        (while_start)
-        (literal
-          (boolean))
-        (block
-          (exit_while_statement))
-        (end_statement
-          (end_while))))
-    (end_statement
-      (end_sub))))
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (while_statement
+          (while_start)
+          (literal
+            (boolean))
+          (block
+            (exit_while_statement))
+          (end_statement
+            (end_while))))
+      (end_statement
+        (end_sub))))

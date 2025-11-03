@@ -9,32 +9,31 @@ namespace MyApp.Utils
         end function
     end class
 end namespace
-
 ---
 
 (source_file
   (namespace_declaration
-    name: (namespace_name
+    (namespace_name
       (identifier)
       (identifier))
-    body: (namespace_body
+    (namespace_body
       (class_declaration
-        name: (identifier)
-        body: (class_body
+        (identifier)
+        (class_body
           (method_definition
-            name: (identifier)
-            parameters: (parameter_list
+            (identifier)
+            (parameter_list
               (parameter
-                name: (identifier)
-                type: (type_annotation
+                (identifier)
+                (type_annotation
                   (type_identifier))))
-            return_type: (type_annotation
+            (type_annotation
               (type_identifier))
-            body: (statement_block
+            (statement_block
               (return_statement
                 (call_expression
-                  function: (identifier)
-                  arguments: (arguments
+                  (identifier)
+                  (arguments
                     (identifier)))))))))))
 
 ==================
@@ -52,36 +51,35 @@ namespace MyApp.Models
         price as float
     end class
 end namespace
-
 ---
 
 (source_file
   (namespace_declaration
-    name: (namespace_name
+    (namespace_name
       (identifier)
       (identifier))
-    body: (namespace_body
+    (namespace_body
       (class_declaration
-        name: (identifier)
-        body: (class_body
+        (identifier)
+        (class_body
           (field_declaration
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))
           (field_declaration
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))))
       (class_declaration
-        name: (identifier)
-        body: (class_body
+        (identifier)
+        (class_body
           (field_declaration
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))
           (field_declaration
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))))))
 
 ==================
@@ -93,30 +91,29 @@ namespace Utils
         return a + b
     end function
 end namespace
-
 ---
 
 (source_file
   (namespace_declaration
-    name: (namespace_name
+    (namespace_name
       (identifier))
-    body: (namespace_body
+    (namespace_body
       (function_declaration
-        name: (identifier)
-        parameters: (parameter_list
+        (identifier)
+        (parameter_list
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier)))
           (parameter
-            name: (identifier)
-            type: (type_annotation
+            (identifier)
+            (type_annotation
               (type_identifier))))
-        return_type: (type_annotation
+        (type_annotation
           (type_identifier))
-        body: (statement_block
+        (statement_block
           (return_statement
             (binary_expression
-              left: (identifier)
-              operator: (plus)
-              right: (identifier))))))))
+              (identifier)
+              (plus)
+              (identifier))))))))

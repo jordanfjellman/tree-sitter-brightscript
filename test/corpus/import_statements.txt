@@ -3,27 +3,25 @@ Basic import statement
 ==================
 
 import "pkg:/source/utils.brs"
-
 ---
 
 (source_file
   (import_declaration
-    source: (string
-      (string_contents))))
+    (string
+      (string_content))))
 
 ==================
 Import with alias
 ==================
 
 import "pkg:/source/utils.brs" as Utils
-
 ---
 
 (source_file
   (import_declaration
-    source: (string
-      (string_contents))
-    alias: (identifier)))
+    (string
+      (string_content))
+    (identifier)))
 
 ==================
 Multiple imports
@@ -32,17 +30,16 @@ Multiple imports
 import "pkg:/source/utils.brs"
 import "pkg:/source/models.brs" as Models
 import "pkg:/source/services.brs"
-
 ---
 
 (source_file
   (import_declaration
-    source: (string
-      (string_contents)))
+    (string
+      (string_content)))
   (import_declaration
-    source: (string
-      (string_contents))
-    alias: (identifier))
+    (string
+      (string_content))
+    (identifier))
   (import_declaration
-    source: (string
-      (string_contents))))
+    (string
+      (string_content))))

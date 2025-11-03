@@ -9,20 +9,19 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (print_statement
-        (print)
-        (prefix_exp
-          (left_paren)
-          (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (print_statement
+          (print)
+          (prefix_exp
+            (left_paren)
             (string
-              (string_contents)))
-          (right_paren))))
-    (end_statement
-      (end_sub))))
+              (string_content))
+            (right_paren))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Print statements with params
@@ -35,23 +34,22 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list
-      (parameter
-        (identifier)
-        (type_specifier
-          (as))))
-    (block
-      (print_statement
-        (print)
-        (prefix_exp
-          (left_paren)
+      (sub_start)
+      (identifier)
+      (parameter_list
+        (parameter
+          (identifier)
+          (type_annotation
+            (type_identifier))))
+      (block
+        (print_statement
+          (print)
           (prefix_exp
-            (identifier))
-          (right_paren))))
-    (end_statement
-      (end_sub))))
+            (left_paren)
+            (identifier)
+            (right_paren))))
+      (end_statement
+        (end_sub))))
 
 ==================
 Print statements with comma sep params
@@ -64,27 +62,26 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list
-      (parameter
-        (identifier)
-        (type_specifier
-          (as)))
-      (parameter
-        (identifier)
-        (type_specifier
-          (as))))
-    (block
-      (print_statement
-        (print)
-        (prefix_exp
-          (left_paren)
+      (sub_start)
+      (identifier)
+      (parameter_list
+        (parameter
+          (identifier)
+          (type_annotation
+            (type_identifier)))
+        (parameter
+          (identifier)
+          (type_annotation
+            (type_identifier))))
+      (block
+        (print_statement
+          (print)
           (prefix_exp
-            (identifier))
-          (right_paren))))
-    (end_statement
-      (end_sub))))
+            (left_paren)
+            (identifier)
+            (right_paren))))
+      (end_statement
+        (end_sub))))
 
 ==================
 function return type string
@@ -97,24 +94,23 @@ end function
 
 (source_file
   (function_statement
-    (function_start)
-    (identifier)
-    (parameter_list)
-    (return_type
-      (type_specifier
-        (as)))
-    (block
-      (return_statement
-        (return)
-        (literal
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (return_type
+        (type_annotation
+          (type_identifier)))
+      (block
+        (return_statement
           (string
-            (string_contents)))))
-    (end_statement
-      (end_function))))
+            (string_content))))
+      (end_statement
+        (end_function))))
 
 ==================
 Library definition
 ==================
+
 Library "Roku_Ads.brs"
 
 sub x()
@@ -125,26 +121,26 @@ end sub
 (source_file
   (library_statement
     (string
-      (string_contents)))
+      (string_content)))
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (print_statement
-        (print)
-        (prefix_exp
-          (left_paren)
-          (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (print_statement
+          (print)
+          (prefix_exp
+            (left_paren)
             (string
-              (string_contents)))
-          (right_paren))))
-    (end_statement
-      (end_sub))))
+              (string_content))
+            (right_paren))))
+      (end_statement
+        (end_sub))))
 
-====================
+==================
 invalid return statement
-====================
+==================
+
 function x() as object
     return invalid
 end function
@@ -152,19 +148,18 @@ end function
 
 (source_file
   (function_statement
-    (function_start)
-    (identifier)
-    (parameter_list)
-    (return_type
-      (type_specifier
-        (as)))
-    (block
-      (return_statement
-        (return)
-        (literal
-          (invalid))))
-    (end_statement
-      (end_function))))
+      (function_start)
+      (identifier)
+      (parameter_list)
+      (return_type
+        (type_annotation
+          (type_identifier)))
+      (block
+        (return_statement
+          (literal
+            (invalid))))
+      (end_statement
+        (end_function))))
 
 ==================
 Print statement as shortcut
@@ -177,14 +172,13 @@ end sub
 
 (source_file
   (sub_statement
-    (sub_start)
-    (identifier)
-    (parameter_list)
-    (block
-      (print_statement
-        (print)
-        (literal
+      (sub_start)
+      (identifier)
+      (parameter_list)
+      (block
+        (print_statement
+          (print)
           (string
-            (string_contents)))))
-    (end_statement
-      (end_sub))))
+            (string_content))))
+      (end_statement
+        (end_sub))))
